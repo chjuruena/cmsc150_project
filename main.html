@@ -1,0 +1,86 @@
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+    <form method="post">
+     <div class="form-group" id="div_radiogoal">
+      <label class="control-label requiredField" for="radiogoal">
+       Choose goal:
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="">
+       <label class="radio-inline">
+        <input name="radiogoal" type="radio" value="Minimize  "/>
+        Minimize
+       </label>
+       <label class="radio-inline">
+        <input name="radiogoal" type="radio" value="Maximize"/>
+        Maximize
+       </label>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="varnum">
+       Number of variables
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="varnum" name="varnum" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="number1">
+       Number of constraints
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="number1" name="number1" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="objfxn">
+       Objective Function
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <input class="form-control" id="objfxn" name="objfxn" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label requiredField" for="textarea1">
+       Constraints
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <textarea class="form-control" cols="40" id="textarea1" name="textarea1" rows="10"></textarea>
+      <span class="help-block" id="hint_textarea1">
+       (1) Variable names must begin with letters.
+(eg. p, x1, loss, z, s, t, u...) 
+(2) For fraction inputs, keep the variable on the right.
+(eg. (1/3)x and not x/3) (3) Every variable you use must appear in the objective function, (but not necessarily in the constraints). 
+(eg. p = 0x + 2y + 0z ) 
+(5) No need to enter the default constraints: x &gt;= 0, y &gt;= 0, z &gt;= 0 etc.
+      </span>
+     </div>
+     <div class="form-group">
+      <div>
+       <button class="btn btn-primary " name="submit" type="submit">
+        Submit
+       </button>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</div>
