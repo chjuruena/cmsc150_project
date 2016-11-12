@@ -42,12 +42,34 @@ $("#solvebtn").on("click", function(){
 
         getData(fxn, function(data) {
             /* do something with q */
-            console.log(data);
-            let JSONdata = JSON.stringify({data: data});
-            console.log(myJSON);
+            // console.log(data.Object.mat);
+            console.log(data["mat"]);
+               let tableaus = data["mat"];
+               let sttuff = [];
+	        for (var i = 0; i < tableaus.length; i++) {
+	           //sttuff.push(makeTableHTML(tableaus[i]));
+	            $("#result").append(makeTableHTML(tableaus[i]));                 
+	                // Append <button> to <body>
 
+	        }
+	        console.log(sttuff);
+               
+
+        //     let JSONdata = JSON.stringify({data: data});
+        //     console.log(JSONdata);
+
+        //   let tableaus = JSONdata.data.mat[0];
+        //   let solutionSet = JSONdata.solutionSet;
+        //   let x1 = JSONdata.x1;
+        //   let x2 = JSONdata.x2;
+           
+        //   console.log(tableaus);
+           
+           
+        
 
             ///NAKUKUHA NA LINE 46!!!!!!!!!!!!!!!!!!!!
+            
 
         });    // }
         console.log(res);
@@ -56,6 +78,19 @@ $("#solvebtn").on("click", function(){
 
 }); 
 console.log(res);
+function makeTableHTML(myArray) {
+    var result = "<table border=1>";
+    for(var i=0; i<myArray.length; i++) {
+        result += "<tr>";
+        for(var j=0; j<myArray[i].length; j++){
+            result += "<td>"+myArray[i][j]+"</td>";
+        }
+        result += "</tr>";
+    }
+    result += "</table>";
+    
+    return result;
+}
 
 
 function parseNum(varnum, variables, constraintsnum, objfxn, constr){
