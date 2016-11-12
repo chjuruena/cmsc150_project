@@ -93,15 +93,33 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr){
 			 		let x = str[a].match(/x\d/g);
  			 		if(x!=null){
  			 		    console.log("XXXXXX    " + x);
-    				  	y =  '1'+ ' * ' + x ;
+    				//   	y =  '1'+ ' * ' + x ;
     
     			 		for (var b = 0; b < varnum; b++) {
     			 			//once ang dapat pumasok
-    			 			if(str.indexOf(variables[b])<0) y = y + ' + ' + '0' + ' * ' + variables[b];
+    			 			
+    			 			if(str.indexOf(variables[b])<0){ // wala
+    			 			   if(b == 0){
+    			 			        y = '0' + ' * ' + variables[b];
+    			 			   }else{
+    			 			        y = y + ' + ' + '0' + ' * ' + variables[b];
+
+    			 			   }
+    			 			     
+    			 			}
+    			 			else if (variables[b]==x){
+                                 if(b == 0){
+                                     y = '1' + ' * ' + variables[b];
+                                }else{
+                                     y = y + ' + ' + '1' + ' * ' + variables[b];
+                                
+                                }
+
+    			 			}
     			 		}
  			 		}
 	 			}
-	 			y = y + ' + ' + '-' + str[str.length-1];
+	 			y = y + ' + ' + '-' + str[str.length-1].split(" ").pop();
 	 			constraintsFormatted.push(y);
 
 	 	}else{
@@ -116,13 +134,22 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr){
 	 		let temp = '';
 			for (var j = 1; j < regRes.length; j++) {
 				// if(j%2!=0 && j==regRes.length-1) regRes.splice(j,1);
-				if( j == 1) { // first
-			 		 	temp =  regRes[j-1]  + ' * ' + variables[j-1];
+			 	
+			 	if(i == constraintsnum-1 ){
+			 	     if( j == 1 ) { // first
+			 		 	temp =  '-' + regRes[j-1].split(" ").pop()  + ' * ' + variables[j-1];
+			 	    }else { // first
+			 		 	temp =  temp + ' + ' + '-' + regRes[j-1].split(" ").pop()  + ' * ' + variables[j-1];
+			 	    }
 			 	}else{
-			 		 	temp =  temp + ' + ' +  regRes[j-1] + ' * ' + variables[j-1];
+			 	    if( j == 1) { // first
+			 		 	temp =  regRes[j-1].split(" ").pop()  + ' * ' + variables[j-1];
+    			 	}else{
+    			 		 	temp =  temp + ' + ' +  regRes[j-1].split(" ").pop() + ' * ' + variables[j-1];
+    			 	}
 			 	}
 			}
-			if(i != constraintsnum-1 ) temp = temp + " + " + '-' + regRes[regRes.length-1];
+			if(i != constraintsnum-1 ) temp = temp + " + " + '-' + regRes[regRes.length-1].split(" ").pop();
 			else  temp = temp + " + " + ' 0';
 	 		constraintsFormatted.push(temp);	 		
 	 	}
