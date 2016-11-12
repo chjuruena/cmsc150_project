@@ -2,6 +2,7 @@
 
 //because identity is in base
 let simplex = null;
+let res = null;
 let fxn = null;
 ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
 
@@ -39,13 +40,19 @@ $("#solvebtn").on("click", function(){
 
         console.log(fxn);
 
-        solveSimplex(fxn);
-    // }
+        getData(fxn, function(data) {
+            /* do something with q */
+            res = data;
+            console.log(res);
+            ///NAKUKUHA NA LINE 46!!!!!!!!!!!!!!!!!!!!
+
+        });    // }
+        console.log(res);
     
     
 
 }); 
-console.log(fxn);
+console.log(res);
 
 function parseNum(varnum, variables, constraintsnum, objfxn, constr){
     
@@ -218,7 +225,7 @@ let simplex = "";
     });
 });    
 
-function solveSimplex(fxn){
+function getData(fxn, callback){
     console.log(fxn);
 
     let res = [];
@@ -228,7 +235,9 @@ function solveSimplex(fxn){
           "x" : snipetty
     }, function(output){
         // res
-    console.log(output)
+    // console.log(output);
+        callback(output);
+
     //   $("#output").text(output.augcoeffmatrix); 
     });
     
@@ -237,7 +246,15 @@ function solveSimplex(fxn){
         alert("Server error: " + req.responseText);
     });  
 }
+function foo(address, fn){
+  geocoder.geocode( { 'address': address}, function(results, status) {
+     fn(results[0].geometry.location); 
+  });
+}
 
+foo("address", function(location){
+  alert(location); // this is where you get the return value
+});
 // function getData(callback){
     
 //     let req = ocpu.rpc("identity", {
@@ -257,12 +274,31 @@ function solveSimplex(fxn){
 // }
 
 
-// function returnData(data){
-//     console.log(data.length); // 3
-//     return data;
-// }
+function returnData(data){
+    console.log(data.length); // 3
+    return data;
+}
 
-// getData(function(data) {
-//     /* do something with q */
-//     simplex = data;
-// });
+
+
+
+//gumagana simplex
+// function solveSimplex(fxn){
+//     console.log(fxn);
+
+//     let res = [];
+//     let snipetty = new ocpu.Snippet(fxn+code);
+
+//     let req = ocpu.rpc("identity", {
+//           "x" : snipetty
+//     }, function(output){
+//         // res
+//     console.log(output)
+//     //   $("#output").text(output.augcoeffmatrix); 
+//     });
+    
+//     //if R returns an error, alert the error message
+//     req.fail(function(){
+//         alert("Server error: " + req.responseText);
+//     });  
+// }
