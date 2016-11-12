@@ -48,6 +48,7 @@ $("#solvebtn").on("click", function(){
                let sttuff = [];
 	        for (var i = 0; i < tableaus.length; i++) {
 	           //sttuff.push(makeTableHTML(tableaus[i]));
+	           console.log(makeTableHTML(tableaus[i]));
 	            $("#result").append(makeTableHTML(tableaus[i]));                 
 	                // Append <button> to <body>
 
@@ -79,7 +80,7 @@ $("#solvebtn").on("click", function(){
 }); 
 console.log(res);
 function makeTableHTML(myArray) {
-    var result = "<table border=1>";
+    var result = "<table border=1 class=\"tg\">";
     for(var i=0; i<myArray.length; i++) {
         result += "<tr>";
         for(var j=0; j<myArray[i].length; j++){
