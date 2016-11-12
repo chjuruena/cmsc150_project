@@ -42,8 +42,11 @@ $("#solvebtn").on("click", function(){
 
         getData(fxn, function(data) {
             /* do something with q */
-            res = data;
-            console.log(res);
+            console.log(data);
+            let JSONdata = JSON.stringify({data: data});
+            console.log(myJSON);
+
+
             ///NAKUKUHA NA LINE 46!!!!!!!!!!!!!!!!!!!!
 
         });    // }
@@ -53,6 +56,7 @@ $("#solvebtn").on("click", function(){
 
 }); 
 console.log(res);
+
 
 function parseNum(varnum, variables, constraintsnum, objfxn, constr){
     
