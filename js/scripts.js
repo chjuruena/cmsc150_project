@@ -8,13 +8,40 @@ ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
 
 
 $(document).ready(function() {
+    var selected = [];
+    var selectedFoods = [];
+
    
    
-    
+    var selectedDataTbl =$('#selectedDataTbl').DataTable( {
+        data: selectedFoods,
+        bLengthChange: false,
+         scrollY: "300px",
+         scrollCollapse: true,
+        fixedColumns: true,
+
+         columnDefs: [
+            { width: 200, targets: 0 }
+        ],
+        
+    } );
+    $('#selectedDataTbl tbody').on( 'click', 'tr', function () {
+        if(selectedFoods.length !=0){
+            
+            var selected = selectedDataTbl.row( this ).data();
+            selectedDataTbl.rows( this ).remove().draw();
+            selectedFoods.splice( $.inArray(selected, selectedFoods), 1 ); 
+            console.log( selectedFoods);
+        }
+                console.log( selectedFoods.length);
+
+        
+    } );
+
     
     var table =$('#dataTable').removeAttr('width').DataTable( {
         ajax: 'foods.json',
-        fixedColumns: true,
+        // fixedColumns: true,
         paging: true,
        scrollY:         "300px",
         scrollX:        true,
@@ -22,10 +49,31 @@ $(document).ready(function() {
         columnDefs: [
             { width: 200, targets: 0 }
         ],
+        rowCallback: function( row, data ) {
+            if ( $.inArray(data.DT_RowId, selected) !== -1 ) {
+                $(row).addClass('selected');
+            }
+        }
         
    
     } );
-    $('#dataTable tbody').on( 'click', 'tr', function () {    console.log( table.row( this ).data() );} );
+    $('#dataTable tbody').on( 'click', 'tr', function () {
+        var food = table.row( this ).data();
+        selectedFoods.push(table.row( this ).data());
+        console.log( selectedFoods.length);
+        var id = this.id;
+        var index = $.inArray(id, selected);
+        if ( index === -1 ) {
+            selected.push( id );
+        } else {
+            selected.splice( index, 1 );
+        }
+        $(this).toggleClass('selected');
+        
+        
+        selectedDataTbl.row.add( [table.row( this ).data()[0], "Remove"]).draw(false);
+
+    } );
 } );
 
 var $error = $(".alert-danger");

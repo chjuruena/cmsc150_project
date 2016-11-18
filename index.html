@@ -11,7 +11,6 @@
 		<link href="css/style.css" rel="stylesheet">
 		<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.2.1/css/fixedColumns.dataTables.min.css"/>
-
 		
 	</head>
 	<body>
@@ -47,7 +46,6 @@
 										<div id="solver" class="tab-pane fade in active">
 											<div class="col-md-6 col-sm-6 col-xs-12">
 												<br /> <button id="submitbutton" type="button">Call R</button>
-
 												<form method="post">
 													<div class="form-group" id="div_radiogoal">
 														<label class="control-label requiredField" for="radiogoal">
@@ -144,52 +142,72 @@
 									</div>
 									
 									<div id="diet" class="tab-pane fade">
-										<div class="col-md-12 col-sm-6 col-xs-12">
-											<table id="dataTable" class="display dataTable" cellspacing="0" width="100%">
-												<thead>
+										<div class="row">
+											<div class="col-md-4">
+												<table id="selectedDataTbl" class="display dataTable" cellspacing="0" width="50%">
+													<thead>
+														<tr>
+															<th>Foods</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tfoot>
 													<tr>
-
+														<th>Foods</th>
+														<th>Action</th>
+														
+													</tr>
+													</tfoot>
+												</table>
+											</div>
+											<div class="col-md-8">
+												<table id="dataTable" class="display dataTable" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															
+															<th>Foods</th>
+															<th>Price/Serving</th>
+															<th>Serving Size</th>
+															<th>Calories.</th>
+															<th>Total_Fat g</th>
+															<th>Sodium mg</th>
+															<th>Carbohydrates </th>
+															<th>Dietary_Fiber\ng g</th>
+															<th>Protein g</th>
+															<th>Vit_A IU</th>
+															<th>Vit_C IU</th>
+															<th>Calcium mg</th>
+															<th>Iron mg</th>
+															
+														</tr>
+													</thead>
+													<tfoot>
+													<tr>
 														<th>Foods</th>
 														<th>Price/Serving</th>
 														<th>Serving Size</th>
 														<th>Calories.</th>
 														<th>Total_Fat g</th>
 														<th>Sodium mg</th>
-														<th>Carbohydrates </th> 
+														<th>Carbohydrates </th>
 														<th>Dietary_Fiber\ng g</th>
 														<th>Protein g</th>
 														<th>Vit_A IU</th>
 														<th>Vit_C IU</th>
 														<th>Calcium mg</th>
 														<th>Iron mg</th>
-														
 													</tr>
-												</thead>
-												<tfoot>
-												<tr>
-													<th>Foods</th>
-													<th>Price/Serving</th>
-													<th>Serving Size</th>
-													<th>Calories.</th>
-													<th>Total_Fat g</th>
-													<th>Sodium mg</th>
-													<th>Carbohydrates </th> 
-													<th>Dietary_Fiber\ng g</th>
-													<th>Protein g</th>
-													<th>Vit_A IU</th>
-													<th>Vit_C IU</th>
-													<th>Calcium mg</th>
-													<th>Iron mg</th>
-												</tr>
-												</tfoot>
-											</table>
+													</tfoot>
+												</table>
+											</div>
+											
 										</div>
 									</div>
 									
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">
@@ -203,7 +221,6 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.1/js/dataTables.fixedColumns.min.js"></script>
-
 	<script type="text/javascript" src="js/opencpu-0.4.js"></script>
 	<script type="text/javascript" src="js/r-script.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
