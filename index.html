@@ -9,6 +9,10 @@
 		<meta name="author" content="LayoutIt!">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.2.1/css/fixedColumns.dataTables.min.css"/>
+
+		
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -23,216 +27,185 @@
 						</div>
 						
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="active">
-									<a href="#">Link</a>
-								</li>
-								<li>
-									<a href="#">Link</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">Action</a>
-										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">One more separated link</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<form class="navbar-form navbar-left" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control">
-								</div>
-								<button type="submit" class="btn btn-default">
-								Submit
-								</button>
-							</form>
 							<ul class="nav navbar-nav navbar-right">
-								<li>
-									<a href="#">Link</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">Action</a>
-										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
-									</ul>
-								</li>
+								<li class="active"><a data-toggle="tab" href="#solver">Home</a></li>
+								<li><a data-toggle="tab" href="#diet">Menu 1</a></li>
+								
 							</ul>
 						</div>
 						
 					</nav>
-					<div class="jumbotron">
-						<h2>
-						Hello, world!
-						</h2>
-						<p>
-							This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
-						</p>
-						<h1>Posting Code Snippets</h1>
+					<!--<div class="tab-content">-->
+					<!--<div role="tabpanel" class="tab-pane" id="solver">-->
+					
+					
+					<div class="bootstrap-iso jumbotron tab-content">
+						<div role="tabpanel" class="tab-pane active" id="home">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="tab-content">
+										<div id="solver" class="tab-pane fade in active">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<br /> <button id="submitbutton" type="button">Call R</button>
 
-<textarea id="input" rows="4" cols="50">
-x = rnorm(1000)
-plot(x)
-mean(x)  
-</textarea> 
-
-<br /> <button id="submitbutton" type="button">Call R</button>
-
-<pre><code id="output"></code></pre>
-
-
-
-
-						<p>
-							<a class="btn btn-primary btn-large" href="#">Learn more</a>
-						</p>
-						<div class="bootstrap-iso">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <form method="post">
-                                            <div class="form-group" id="div_radiogoal">
-                                                <label class="control-label requiredField" for="radiogoal">
-                                                    Choose goal:
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <div class="">
-                                                    <label class="radio-inline">
-                                                        <input name="radiogoal" type="radio" value="Minimize  "/>
-                                                        Minimize
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input name="radiogoal" type="radio" value="Maximize"/>
-                                                        Maximize
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="control-label requiredField" for="varnum">
-                                                    Number of variables
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <input class="form-control" id="varnum" name="varnum" type="text" />
-                                                
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="control-label requiredField" for="variables">
-                                                    Enter variables
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <input class="form-control" id="variables" name="variables" type="text" placeholder="e.g. x1,x2"/>
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="control-label requiredField" for="number1">
-                                                    Number of constraints
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <input class="form-control" id="constraintsnum" name="constraintsnum" type="text"/>
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="control-label requiredField" for="objfxn">
-                                                    Objective Function
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <input class="form-control" id="objfxn" name="objfxn" type="text"/>
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="control-label requiredField" for="textarea1">
-                                                    Constraints
-                                                    <span class="asteriskField">
-                                                        *
-                                                    </span>
-                                                </label>
-                                                <textarea class="form-control" cols="40" id="constr" name="textarea1" rows="10"></textarea>
-                                                <span class="help-block" id="hint_textarea1">
-                                                    (1) Variable names must begin with letters.
-                                                    (eg. p, x1, loss, z, s, t, u...)
-                                                    (2) Decimal inputs only. Fractions must be converted to decimal. Keep the variable on the right.
-                                                     (e.g 0x + 2y + 0z)
-                                                    (3) Every variable you use must appear in the objective function, (but not necessarily in the constraints).
-                                                    (eg. p = 0x + 2y + 0z )
-                                                    (5) No need to enter the default constraints: x &gt;= 0, y &gt;= 0, z &gt;= 0 etc.
-                                                    (6) End each line with a semi colon ";"
-                                                    (7) Append space every number-variable pair. 
-                                                    (e.g.  p = 0x + 2y + 0z )
-                                                    (8) Arrange variables in order
-                                                </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <div>
-													<div class="errors">
-													<div class="alert alert-danger hide"></div>
+												<form method="post">
+													<div class="form-group" id="div_radiogoal">
+														<label class="control-label requiredField" for="radiogoal">
+															Choose goal:
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<div class="">
+															<label class="radio-inline">
+																<input name="radiogoal" type="radio" value="Minimize  "/>
+																Minimize
+															</label>
+															<label class="radio-inline">
+																<input name="radiogoal" type="radio" value="Maximize"/>
+																Maximize
+															</label>
+														</div>
 													</div>
-                                                    <button class="btn btn-primary " name="" type="button" id="solvebtn">
-                                                    Solve!
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div id="result">
-                                        	<pre><code id="output"></code></pre>
+													<div class="form-group ">
+														<label class="control-label requiredField" for="varnum">
+															Number of variables
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<input class="form-control" id="varnum" name="varnum" type="text" />
+														
+													</div>
+													<div class="form-group ">
+														<label class="control-label requiredField" for="variables">
+															Enter variables
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<input class="form-control" id="variables" name="variables" type="text" placeholder="e.g. x1,x2"/>
+													</div>
+													<div class="form-group ">
+														<label class="control-label requiredField" for="number1">
+															Number of constraints
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<input class="form-control" id="constraintsnum" name="constraintsnum" type="text"/>
+													</div>
+													<div class="form-group ">
+														<label class="control-label requiredField" for="objfxn">
+															Objective Function
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<input class="form-control" id="objfxn" name="objfxn" type="text"/>
+													</div>
+													<div class="form-group ">
+														<label class="control-label requiredField" for="textarea1">
+															Constraints
+															<span class="asteriskField">
+																*
+															</span>
+														</label>
+														<textarea class="form-control" cols="40" id="constr" name="textarea1" rows="10"></textarea>
+														<span class="help-block" id="hint_textarea1">
+															(1) Variable names must begin with letters.
+															(eg. p, x1, loss, z, s, t, u...)
+															(2) Decimal inputs only. Fractions must be converted to decimal. Keep the variable on the right.
+															(e.g 0x + 2y + 0z)
+															(3) Every variable you use must appear in the objective function, (but not necessarily in the constraints).
+															(eg. p = 0x + 2y + 0z )
+															(5) No need to enter the default constraints: x &gt;= 0, y &gt;= 0, z &gt;= 0 etc.
+															(6) End each line with a semi colon ";"
+															(7) Append space every number-variable pair.
+															(e.g.  p = 0x + 2y + 0z )
+															(8) Arrange variables in order
+														</span>
+													</div>
+													<div class="form-group">
+														<div>
+															<div class="errors">
+																<div class="alert alert-danger hide"></div>
+															</div>
+															<button class="btn btn-primary " name="" type="button" id="solvebtn">
+															Solve!
+															</button>
+														</div>
+													</div>
+												</form>
+												<div id="result">
+												<pre><code id="output"></code></pre>
+											</div>
+										</div>
+									</div>
+									
+									<div id="diet" class="tab-pane fade">
+										<div class="col-md-12 col-sm-6 col-xs-12">
+											<table id="dataTable" class="display dataTable" cellspacing="0" width="100%">
+												<thead>
+													<tr>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="col-md-10">
-
+														<th>Foods</th>
+														<th>Price/Serving</th>
+														<th>Serving Size</th>
+														<th>Calories.</th>
+														<th>Total_Fat g</th>
+														<th>Sodium mg</th>
+														<th>Carbohydrates </th> 
+														<th>Dietary_Fiber\ng g</th>
+														<th>Protein g</th>
+														<th>Vit_A IU</th>
+														<th>Vit_C IU</th>
+														<th>Calcium mg</th>
+														<th>Iron mg</th>
+														
+													</tr>
+												</thead>
+												<tfoot>
+												<tr>
+													<th>Foods</th>
+													<th>Price/Serving</th>
+													<th>Serving Size</th>
+													<th>Calories.</th>
+													<th>Total_Fat g</th>
+													<th>Sodium mg</th>
+													<th>Carbohydrates </th> 
+													<th>Dietary_Fiber\ng g</th>
+													<th>Protein g</th>
+													<th>Vit_A IU</th>
+													<th>Vit_C IU</th>
+													<th>Calcium mg</th>
+													<th>Iron mg</th>
+												</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+									
+								</div>
+							</div>
 						</div>
-						
+					</div>					
+				</div>
+				<div class="row">
+					<div class="col-md-10">
 					</div>
+					
 				</div>
 			</div>
 		</div>
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.1/js/dataTables.fixedColumns.min.js"></script>
 
-		<script src="js/opencpu-0.4.js"></script>
-		<script src="js/r-script.js"></script>
-
-		<script src="js/scripts.js"></script>
-
-	</body>
+	<script type="text/javascript" src="js/opencpu-0.4.js"></script>
+	<script type="text/javascript" src="js/r-script.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+</body>
 </html>

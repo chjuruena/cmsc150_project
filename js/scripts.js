@@ -6,6 +6,28 @@ let res = null;
 let fxn = null;
 ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
 
+
+$(document).ready(function() {
+   
+   
+    
+    
+    var table =$('#dataTable').removeAttr('width').DataTable( {
+        ajax: 'foods.json',
+        fixedColumns: true,
+        paging: true,
+       scrollY:         "300px",
+        scrollX:        true,
+        scrollCollapse: true,
+        columnDefs: [
+            { width: 200, targets: 0 }
+        ],
+        
+   
+    } );
+    $('#dataTable tbody').on( 'click', 'tr', function () {    console.log( table.row( this ).data() );} );
+} );
+
 var $error = $(".alert-danger");
  $("form input#varnum, form input#variables, form input#constraintsnum , form input#objfxn, form input#constr ").on("blur", function() {
     if (!$(this).val()) {
@@ -27,6 +49,9 @@ $("#solvebtn").on("click", function(){
         let constraintsnum = $("#constraintsnum").val();
         let objfxn = $("#objfxn").val();
         let constr = $("#constr").val();
+       let optiType = $('input[name="radiogoal"]:checked').val();
+       alert(optiType);
+
         
         
         
@@ -40,7 +65,7 @@ $("#solvebtn").on("click", function(){
 
         console.log(fxn);
 
-        getData(fxn, function(data) {
+        getData(fxn, optiType, function(data) {
             /* do something with q */
             // console.log(data.Object.mat);
             console.log(data["mat"]);
@@ -220,52 +245,9 @@ function get_numbers(input,pattern ) {
     return input.match(pattern);
 }
 //actual handler
-$("#submitbutton").on("click", function(){
 
-let simplex = "";
 
-     //disable button
-    $("button").attr("disabled", "disabled");
-
-    //perform the request
-   let req = ocpu.rpc("identity", {
-    //     // what : mysnippet,
-    //     // args : {
-    //     //   mylist : "list(E1 <- function (x1, x2) 7 * x1 + 11 * x2 + -77, E2 <- function (x1, x2) 10 * x1 + 8 * x2 + -80, E3 <- function (x1, x2) 1 * x1 + 0 * x2 + -9, E4 <- function (x1, x2) 0 * x1 + 1 * x2 + -6,  E5 <- function (x1, x2) -150 * x1 + -175 * x2 + 0)"
-        "x" : snipetty
-    //     // }
-    }, function(output){
-        simplex = req;
-        console.log(output)
-      $("#output").text(output.augcoeffmatrix); 
-    });
-    
-    // TAMA TO
-    //  //perform the request
-    // let req = ocpu.rpc("identity", {
-    //     // what : mysnippet,
-    //     // args : {
-    //     //   mylist : "list(E1 <- function (x1, x2) 7 * x1 + 11 * x2 + -77, E2 <- function (x1, x2) 10 * x1 + 8 * x2 + -80, E3 <- function (x1, x2) 1 * x1 + 0 * x2 + -9, E4 <- function (x1, x2) 0 * x1 + 1 * x2 + -6,  E5 <- function (x1, x2) -150 * x1 + -175 * x2 + 0)"
-    //     "x" : mysnippet
-    //     // }
-    // }, function(output){
-    // console.log(output)
-    //   $("#output").text(output.augcoeffmatrix); 
-    // });
-        
-        
-        console.log(simplex);
-    //if R returns an error, alert the error message
-    req.fail(function(){
-        alert("Server error: " + req.responseText);
-    });      
-    
-    req.always(function(){
-        $("button").removeAttr("disabled");    
-    });
-});    
-
-function getData(fxn, callback){
+function getData(fxn, optiType, callback){
     console.log(fxn);
 
     let res = [];
@@ -286,39 +268,6 @@ function getData(fxn, callback){
         alert("Server error: " + req.responseText);
     });  
 }
-function foo(address, fn){
-  geocoder.geocode( { 'address': address}, function(results, status) {
-     fn(results[0].geometry.location); 
-  });
-}
-
-foo("address", function(location){
-  alert(location); // this is where you get the return value
-});
-// function getData(callback){
-    
-//     let req = ocpu.rpc("identity", {
-//           "x" : snipetty
-//     }, function(output){
-        
-//     // console.log(output)
-//     //   $("#output").text(output.augcoeffmatrix); 
-//     callback(returnData(output));
-
-//     });
-    
-//     //if R returns an error, alert the error message
-//     req.fail(function(){
-//         alert("Server error: " + req.responseText);
-//     });  
-// }
-
-
-function returnData(data){
-    console.log(data.length); // 3
-    return data;
-}
-
 
 
 
