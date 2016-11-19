@@ -174,17 +174,15 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr){
     // constraintsnum++;
 	console.log(constr);
 
-// 	variables = variables.split(",");
+	variables = variables.split(",");
 ///comment later
-	    variables = ['x1', 'x2'];
-	    varnum = 2;
-	    constraintsnum = 4;
+	   // variables = ['x1', 'x2'];
+	   // varnum = 2;
+	   // constraintsnum = 4;
 ///comment later
 
 	    
-	        constraintsnum++;
-
-
+	constraintsnum++;
 	let formatted = [];
 
 	constr = constr.split(";");	
@@ -297,9 +295,15 @@ function get_numbers(input,pattern ) {
 
 function getData(fxn, optiType, callback){
     console.log(fxn);
-
+    let simplexCODE;
+        let snipetty;
+        
+    if (optiType=="Maximize") {
+        snipetty = new ocpu.Snippet(fxn+code);
+    }else{
+        snipetty = new ocpu.Snippet(fxn+mini);
+    }
     let res = [];
-    let snipetty = new ocpu.Snippet(fxn+code);
 
     let req = ocpu.rpc("identity", {
           "x" : snipetty
