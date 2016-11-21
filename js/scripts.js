@@ -102,6 +102,7 @@ $("#solvebtn").on("click", function() {
 
 
     if (optiType != undefined) {
+        
         let varnum = $("#varnum").val();
         let variables = $("#variables").val();
         let constraintsnum = $("#constraintsnum").val();
@@ -121,6 +122,7 @@ $("#solvebtn").on("click", function() {
         console.log("HAHAHAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
         console.log(fxn);
+        
 
         getData(fxn, optiType, function(data) {
             /* do something with q */
@@ -128,13 +130,22 @@ $("#solvebtn").on("click", function() {
             console.log(data["mat"]);
             let tableaus = data["mat"];
             let sttuff = [];
+            let iter;
+            $('#result').remove();
+            $('#inputAndtable').append('<div id="result"></div>');
             for (var i = 0; i < tableaus.length; i++) {
                 //sttuff.push(makeTableHTML(tableaus[i]));
                 console.log(makeTableHTML(tableaus[i]));
-                $("#result").append(makeTableHTML(tableaus[i]));
+                iter = "<span class=\"asteriskField\"> Iteration"+ i;
+                
+                $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]));
+
+                
+
                 // Append <button> to <body>
 
             }
+
             console.log(sttuff);
 
 
