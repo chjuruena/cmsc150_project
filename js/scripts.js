@@ -322,7 +322,7 @@ function getData(fxn, optiType, callback) {
         "x": snipetty
     }, function(output) {
         // res
-        // console.log(output);
+        console.log(output);
         callback(output);
 
         //   $("#output").text(output.augcoeffmatrix); 
