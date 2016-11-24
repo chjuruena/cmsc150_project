@@ -73,7 +73,12 @@ $(document).ready(function() {
     
     solveDIETbtn
     $("#solveDIETbtn").click(function(){
-        compute();
+        var fxn = compute();
+        getData(fxn, "Minimize", function(data) {
+            console.log(data);
+        });
+
+        
     });
     
     function addFood(currSelectedFood){
@@ -337,7 +342,7 @@ $(document).ready(function() {
             linearFunc.push(maxIron);
             console.log(maxIron);
             
-            var equationCount = 23;
+            var equationCount = 22;
             var curr = "";
             var negativePart = true;
             
@@ -375,9 +380,24 @@ $(document).ready(function() {
             
             // linearFunc.push(serving);
             linearFunc.push(objectiveFunction);
-            linearFunc = linearFunc.join("");
+            console.log(linearFunc.length);
+            
+            
+            
+            //add 
+            // /    let fxnlist = 'f <- list( ' + flist.toString() + ' );';
+            var flist = [];
+            for (var i = 1; i <linearFunc.length; i++){
+                flist.push('E' + i);
+            }
+
+            var fxnlist = 'f <- list( ' + flist.toString() + ' );';
+            linearFunc.push(fxnlist);
+
+
+            linearFunc = linearFunc.join(" ");
 
             console.log(linearFunc);
-            // return 
+            return linearFunc;
           }
 });
