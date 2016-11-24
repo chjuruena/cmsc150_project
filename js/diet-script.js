@@ -75,7 +75,6 @@ $(document).ready(function() {
     $("#solveDIETbtn").click(function(){
         var fxn = compute();
         var str = 'dietmini';
-        console.log(fxn);
         // getData(fxn, "Minimize", function(data) {
         //     console.log(data);
         // });
@@ -253,106 +252,99 @@ $(document).ready(function() {
             }
             funcStart += ") ";
             
-           //Prepend simplex call
-            var simplexCall = "system <- list(";
-            for (var i=1; i<22+2*foodCount; i++) {
-              if (i != 1) simplexCall += ", ";
-              simplexCall += "E" + i;
-            }
-            simplexCall += "); ";
-            console.log(simplexCall);
-            rString = simplexCall + rString;
+           
             
             //Add Nutrition limits
             
             
-            calories = "E1 <- " + funcStart + calories + " + -2000;";
+           calories = "E1 <- " + funcStart + calories + " + -2000;";
+            linearFunc.push(calories);
             console.log(calories);
-            rString = calories + rString;
+            
             
             maxCalories = "E2 <- " + funcStart + maxCalories + " + 2250;";
+            linearFunc.push(maxCalories);
             console.log(maxCalories);
-            rString = maxCalories + rString;
             
             cholesterol = "E3 <- " + funcStart + cholesterol + " + 0;";
+            linearFunc.push(cholesterol);
             console.log(cholesterol);
-            rString = cholesterol + rString;
             
             maxCholesterol = "E4 <- " + funcStart + maxCholesterol + " + 300;";
+            linearFunc.push(maxCholesterol);
             console.log(maxCholesterol);
-            rString = maxCholesterol + rString;
             
             totalFat = "E5 <- " + funcStart + totalFat + " + -0;";
+            linearFunc.push(totalFat);
             console.log(totalFat);
-            rString = totalFat + rString;
             
             maxTotalFat = "E6 <- " + funcStart + maxTotalFat + " + 65;";
+            linearFunc.push(maxTotalFat);
             console.log(maxTotalFat);
-            rString = maxTotalFat + rString;
             
             sodium = "E7 <- " + funcStart + sodium + " + 0;";
+            linearFunc.push(sodium);
             console.log(sodium);
-            rString = sodium + rString;
             
             maxSodium = "E8 <- " + funcStart + maxSodium + " + 2400;";
+            linearFunc.push(maxSodium);
             console.log(maxSodium);
-            rString = maxSodium + rString;
             
             carbohydrates = "E9 <- " + funcStart + carbohydrates + " + 0;";
+            linearFunc.push(carbohydrates);
             console.log(carbohydrates);
-            rString = carbohydrates + rString;
             
             maxCarbohydrates = "E10 <- " + funcStart + maxCarbohydrates + " + 300;";
+            linearFunc.push(maxCarbohydrates);
             console.log(maxCarbohydrates);
-            rString = maxCarbohydrates + rString;
             
             dietaryFiber = "E11 <- " + funcStart + dietaryFiber + " + -25;";
+            linearFunc.push(dietaryFiber);
             console.log(dietaryFiber);
-            rString = dietaryFiber + rString;
             
             maxDietaryFiber = "E12 <- " + funcStart + maxDietaryFiber + " + 100;";
+            linearFunc.push(maxDietaryFiber);
             console.log(maxDietaryFiber);
-            rString = maxDietaryFiber + rString;
             
-            protein = "E13 <- " + funcStart + protein + " + -50;";
+            protein = "E13 <- " + funcStart + protein + " - 50;";
+            linearFunc.push(protein);
             console.log(protein);
-            rString = protein + rString;
             
             maxProtein = "E14 <- " + funcStart + maxProtein + " + 100;";
+            linearFunc.push(maxProtein);
             console.log(maxProtein);
-            rString = maxProtein + rString;
             
             vitA = "E15 <- " + funcStart + vitA + " + -5000;";
+            linearFunc.push(vitA);
             console.log(vitA);
-            rString = vitA + rString;
             
             maxVitA = "E16 <- " + funcStart + maxVitA + " + 50000;";
+            linearFunc.push(maxVitA);
             console.log(maxVitA);
-            rString = maxVitA + rString;
             
             vitC = "E17 <- " + funcStart + vitC + " + -50;";
+            linearFunc.push(vitC);
             console.log(vitC);
-            rString = vitC + rString;
             
             maxVitC = "E18 <- " + funcStart + maxVitC + " + 20000;";
+            linearFunc.push(maxVitC);
             console.log(maxVitC);
-            rString = maxVitC + rString;
             
             calcium = "E19 <- " + funcStart + calcium + " + -800;";
+            linearFunc.push(calcium);
             console.log(calcium);
-            rString = calcium + rString;
             
             maxCalcium = "E20 <- " + funcStart + maxCalcium + " + 1600;";
+            linearFunc.push(maxCalcium);
             console.log(maxCalcium);
-            rString = maxCalcium + rString;
             
             iron = "E21 <- " + funcStart + iron + " + -10;";
+            linearFunc.push(iron);
             console.log(iron);
-            rString = iron + rString;
             
             maxIron = "E22 <- " + funcStart + maxIron + " + 30;";
+            linearFunc.push(maxIron);
             console.log(maxIron);
-            rString = maxIron + rString;
             
             var equationCount = 23;
             var curr = "";
@@ -379,16 +371,41 @@ $(document).ready(function() {
               equationCount++;
               curr = "";
             }
+            
+            
+           
             console.log(serving);
-            for (var i=0; i<serving.length; i++) {
-              rString = serving[i] + rString;
-            }
             
             objectiveFunction = "E" + equationCount + " <- " + funcStart + objectiveFunction + " + 0;"
             console.log(objectiveFunction);
-            rString = objectiveFunction + rString;
-            
            
-            return rString;
+            linearFunc =  $.merge( $.merge( [], linearFunc ), serving );
+
+            
+            // linearFunc.push(serving);
+            linearFunc.push(objectiveFunction);
+            console.log(linearFunc.length);
+            
+            
+            
+            //add 
+            // /    let fxnlist = 'f <- list( ' + flist.toString() + ' );';
+            var flist = [];
+            for (var i = 1; i <=linearFunc.length; i++){
+                flist.push('E' + i);
+            }
+
+            var fxnlist = 'f <- list( ' + flist.toString() + ' );';
+            linearFunc.push(fxnlist);
+
+
+            linearFunc = linearFunc.join(" ");
+
+            console.log(linearFunc);
+            return linearFunc;
           }
 });
+
+
+// E25 <- function(x1) -0.23 * x1 + 0;E24 <- function(x1) -1 * x1 + 10;E23 <- function(x1) 1 * x1 + 0;E22 <- function(x1) -0.1 * x1 + 30;E21 <- function(x1) 0.1 * x1 + -10;E20 <- function(x1) -296.7 * x1 + 1600;E19 <- function(x1) 296.7 * x1 + -800;E18 <- function(x1) -2.3 * x1 + 20000;E17 <- function(x1) 2.3 * x1 + -50;E16 <- function(x1) -500.2 * x1 + 50000;E15 <- function(x1) 500.2 * x1 + -5000;E14 <- function(x1) -8.1 * x1 + 100;E13 <- function(x1) 8.1 * x1 + -50;E12 <- function(x1) -0 * x1 + 100;E11 <- function(x1) 0 * x1 + -25;E10 <- function(x1) -11.7 * x1 + 300;E9 <- function(x1) 11.7 * x1 + 0;E8 <- function(x1) -121.8 * x1 + 2400;E7 <- function(x1) 121.8 * x1 + 0;E6 <- function(x1) -4.7 * x1 + 65;E5 <- function(x1) 4.7 * x1 + -0;E4 <- function(x1) -18.3 * x1 + 300;E3 <- function(x1) 18.3 * x1 + 0;E2 <- function(x1) -121.2 * x1 + 2250;E1 <- function(x1) 121.2 * x1 + -2000;system <- list(E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22, E23, E24, E25);
+// E1 <- function(x1) 121.2 * x1 + 2000; E2 <- function(x1) -121.2 * x1 + -2250; E3 <- function(x1) 18.3 * x1 + 0; E4 <- function(x1) -18.3 * x1 + -300; E5 <- function(x1) 4.7 * x1 + 0; E6 <- function(x1) -4.7 * x1 + -65; E7 <- function(x1) 121.8 * x1 + 0; E8 <- function(x1) -121.8 * x1 + -2400; E9 <- function(x1) 11.7 * x1 + 0; E10 <- function(x1) -11.7 * x1 + -300; E11 <- function(x1) 0 * x1 + 25; E12 <- function(x1) -0 * x1 + -100; E13 <- function(x1) 8.1 * x1 + 50; E14 <- function(x1) -8.1 * x1 + -100; E15 <- function(x1) 500.2 * x1 + 5000; E16 <- function(x1) -500.2 * x1 + -50000; E17 <- function(x1) 2.3 * x1 + 50; E18 <- function(x1) -2.3 * x1 + -20000; E19 <- function(x1) 296.7 * x1 + 800; E20 <- function(x1) -296.7 * x1 + -1600; E21 <- function(x1) 0.1 * x1 + 10; E22 <- function(x1) -0.1 * x1 + -30; E22 <- function(x1) 1 * x1 + 0; E23 <- function(x1) -1 * x1 + -10; E24 <- function(x1) -0.23 * x1 + 0; f <- list( E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,E13,E14,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24 );
