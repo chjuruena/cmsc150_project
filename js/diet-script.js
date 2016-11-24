@@ -74,7 +74,12 @@ $(document).ready(function() {
     solveDIETbtn
     $("#solveDIETbtn").click(function(){
         var fxn = compute();
-        getData(fxn, "Minimize", function(data) {
+        var str = 'dietmini';
+        console.log(fxn);
+        // getData(fxn, "Minimize", function(data) {
+        //     console.log(data);
+        // });
+         getData(fxn, str, function(data) {
             console.log(data);
         });
 
@@ -248,101 +253,108 @@ $(document).ready(function() {
             }
             funcStart += ") ";
             
-           
+           //Prepend simplex call
+            var simplexCall = "system <- list(";
+            for (var i=1; i<22+2*foodCount; i++) {
+              if (i != 1) simplexCall += ", ";
+              simplexCall += "E" + i;
+            }
+            simplexCall += "); ";
+            console.log(simplexCall);
+            rString = simplexCall + rString;
             
             //Add Nutrition limits
             
             
-            calories = "E1 <- " + funcStart + calories + " + 2000;";
-            linearFunc.push(calories);
+            calories = "E1 <- " + funcStart + calories + " + -2000;";
             console.log(calories);
+            rString = calories + rString;
             
-            
-            maxCalories = "E2 <- " + funcStart + maxCalories + " + -2250;";
-            linearFunc.push(maxCalories);
+            maxCalories = "E2 <- " + funcStart + maxCalories + " + 2250;";
             console.log(maxCalories);
+            rString = maxCalories + rString;
             
             cholesterol = "E3 <- " + funcStart + cholesterol + " + 0;";
-            linearFunc.push(cholesterol);
             console.log(cholesterol);
+            rString = cholesterol + rString;
             
-            maxCholesterol = "E4 <- " + funcStart + maxCholesterol + " + -300;";
-            linearFunc.push(maxCholesterol);
+            maxCholesterol = "E4 <- " + funcStart + maxCholesterol + " + 300;";
             console.log(maxCholesterol);
+            rString = maxCholesterol + rString;
             
-            totalFat = "E5 <- " + funcStart + totalFat + " + 0;";
-            linearFunc.push(totalFat);
+            totalFat = "E5 <- " + funcStart + totalFat + " + -0;";
             console.log(totalFat);
+            rString = totalFat + rString;
             
-            maxTotalFat = "E6 <- " + funcStart + maxTotalFat + " + -65;";
-            linearFunc.push(maxTotalFat);
+            maxTotalFat = "E6 <- " + funcStart + maxTotalFat + " + 65;";
             console.log(maxTotalFat);
+            rString = maxTotalFat + rString;
             
             sodium = "E7 <- " + funcStart + sodium + " + 0;";
-            linearFunc.push(sodium);
             console.log(sodium);
+            rString = sodium + rString;
             
-            maxSodium = "E8 <- " + funcStart + maxSodium + " + -2400;";
-            linearFunc.push(maxSodium);
+            maxSodium = "E8 <- " + funcStart + maxSodium + " + 2400;";
             console.log(maxSodium);
+            rString = maxSodium + rString;
             
             carbohydrates = "E9 <- " + funcStart + carbohydrates + " + 0;";
-            linearFunc.push(carbohydrates);
             console.log(carbohydrates);
+            rString = carbohydrates + rString;
             
-            maxCarbohydrates = "E10 <- " + funcStart + maxCarbohydrates + " + -300;";
-            linearFunc.push(maxCarbohydrates);
+            maxCarbohydrates = "E10 <- " + funcStart + maxCarbohydrates + " + 300;";
             console.log(maxCarbohydrates);
+            rString = maxCarbohydrates + rString;
             
-            dietaryFiber = "E11 <- " + funcStart + dietaryFiber + " + 25;";
-            linearFunc.push(dietaryFiber);
+            dietaryFiber = "E11 <- " + funcStart + dietaryFiber + " + -25;";
             console.log(dietaryFiber);
+            rString = dietaryFiber + rString;
             
-            maxDietaryFiber = "E12 <- " + funcStart + maxDietaryFiber + " + -100;";
-            linearFunc.push(maxDietaryFiber);
+            maxDietaryFiber = "E12 <- " + funcStart + maxDietaryFiber + " + 100;";
             console.log(maxDietaryFiber);
+            rString = maxDietaryFiber + rString;
             
-            protein = "E13 <- " + funcStart + protein + " + 50;";
-            linearFunc.push(protein);
+            protein = "E13 <- " + funcStart + protein + " + -50;";
             console.log(protein);
+            rString = protein + rString;
             
-            maxProtein = "E14 <- " + funcStart + maxProtein + " + -100;";
-            linearFunc.push(maxProtein);
+            maxProtein = "E14 <- " + funcStart + maxProtein + " + 100;";
             console.log(maxProtein);
+            rString = maxProtein + rString;
             
-            vitA = "E15 <- " + funcStart + vitA + " + 5000;";
-            linearFunc.push(vitA);
+            vitA = "E15 <- " + funcStart + vitA + " + -5000;";
             console.log(vitA);
+            rString = vitA + rString;
             
-            maxVitA = "E16 <- " + funcStart + maxVitA + " + -50000;";
-            linearFunc.push(maxVitA);
+            maxVitA = "E16 <- " + funcStart + maxVitA + " + 50000;";
             console.log(maxVitA);
+            rString = maxVitA + rString;
             
-            vitC = "E17 <- " + funcStart + vitC + " + 50;";
-            linearFunc.push(vitC);
+            vitC = "E17 <- " + funcStart + vitC + " + -50;";
             console.log(vitC);
+            rString = vitC + rString;
             
-            maxVitC = "E18 <- " + funcStart + maxVitC + " + -20000;";
-            linearFunc.push(maxVitC);
+            maxVitC = "E18 <- " + funcStart + maxVitC + " + 20000;";
             console.log(maxVitC);
+            rString = maxVitC + rString;
             
-            calcium = "E19 <- " + funcStart + calcium + " + 800;";
-            linearFunc.push(calcium);
+            calcium = "E19 <- " + funcStart + calcium + " + -800;";
             console.log(calcium);
+            rString = calcium + rString;
             
-            maxCalcium = "E20 <- " + funcStart + maxCalcium + " + -1600;";
-            linearFunc.push(maxCalcium);
+            maxCalcium = "E20 <- " + funcStart + maxCalcium + " + 1600;";
             console.log(maxCalcium);
+            rString = maxCalcium + rString;
             
-            iron = "E21 <- " + funcStart + iron + " + 10;";
-            linearFunc.push(iron);
+            iron = "E21 <- " + funcStart + iron + " + -10;";
             console.log(iron);
+            rString = iron + rString;
             
-            maxIron = "E22 <- " + funcStart + maxIron + " + -30;";
-            linearFunc.push(maxIron);
+            maxIron = "E22 <- " + funcStart + maxIron + " + 30;";
             console.log(maxIron);
+            rString = maxIron + rString;
             
-            var equationCount = 22;
+            var equationCount = 23;
             var curr = "";
             var negativePart = true;
             
@@ -357,7 +369,7 @@ $(document).ready(function() {
                 }
               }
               if (!negativePart) {
-                serving.push("E" + equationCount + " <- " + funcStart + curr + " + -10;");
+                serving.push("E" + equationCount + " <- " + funcStart + curr + " + 10;");
                 negativePart = true;
               } else {
                 serving.push("E" + equationCount + " <- " + funcStart + curr + " + 0;");
@@ -367,37 +379,16 @@ $(document).ready(function() {
               equationCount++;
               curr = "";
             }
-            
-            
-           
             console.log(serving);
+            for (var i=0; i<serving.length; i++) {
+              rString = serving[i] + rString;
+            }
             
             objectiveFunction = "E" + equationCount + " <- " + funcStart + objectiveFunction + " + 0;"
             console.log(objectiveFunction);
+            rString = objectiveFunction + rString;
+            
            
-            linearFunc =  $.merge( $.merge( [], linearFunc ), serving );
-
-            
-            // linearFunc.push(serving);
-            linearFunc.push(objectiveFunction);
-            console.log(linearFunc.length);
-            
-            
-            
-            //add 
-            // /    let fxnlist = 'f <- list( ' + flist.toString() + ' );';
-            var flist = [];
-            for (var i = 1; i <linearFunc.length; i++){
-                flist.push('E' + i);
-            }
-
-            var fxnlist = 'f <- list( ' + flist.toString() + ' );';
-            linearFunc.push(fxnlist);
-
-
-            linearFunc = linearFunc.join(" ");
-
-            console.log(linearFunc);
-            return linearFunc;
+            return rString;
           }
 });
