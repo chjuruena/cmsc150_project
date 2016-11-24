@@ -71,6 +71,11 @@ $(document).ready(function() {
 
     });
     
+    solveDIETbtn
+    $("#solveDIETbtn").click(function(){
+        compute();
+    });
+    
     function addFood(currSelectedFood){
         console.log(currSelectedFood);
     }
@@ -104,7 +109,7 @@ $(document).ready(function() {
         var foodCount = 1;
     
     
-    function addFoody (currSelectedFood) {
+   function addFoody (currSelectedFood) {
             //Add to objective function
             if (foodCount != 1) {
               objectiveFunction += " + "; 
@@ -133,73 +138,91 @@ $(document).ready(function() {
               maxIron += " + ";
               
             }
-            objectiveFunction += "-" +  + " * x" + foodCount;
+            
+      // 0<th>Foods</th>
+      // 1<th>Price/Serving</th>
+      // 2<th>Serving Size</th>
+      // 3<th>Calories.</th>
+      // 4<th>Colesterol mg</th>
+
+      // 5<th>Total_Fat g</th>
+      // 6<th>Sodium mg</th>
+      // 7<th>Carbohydrates </th>
+      // 8<th>Dietary_Fiber\ng g</th>
+      // 9<th>Protein g</th>
+      // 10<th>Vit_A IU</th>
+      // 11<th>Vit_C IU</th>
+      // 12<th>Calcium mg</th>
+      // 13<th>Iron mg</th>
+      
+            // <th>Price/Serving</th>
+            objectiveFunction += "-" + currSelectedFood[1] + " * x" + foodCount;
             console.log("objectiveFunction: " + objectiveFunction);
             
             //Add to constraints
             //Add calorie constraints
-            calories += event.model.item.calories + " * x" + foodCount;
-            maxCalories += "-" + event.model.item.calories + " * x" + foodCount;
+            calories += currSelectedFood[3] + " * x" + foodCount;
+            maxCalories += "-" + currSelectedFood[3] + " * x" + foodCount;
             console.log("calories: " + calories);
             console.log("maxCalories: " + maxCalories);
             
             //Add cholesterol
-            cholesterol += event.model.item.cholesterol + " * x" + foodCount;
-            maxCholesterol += "-" + event.model.item.cholesterol + " * x" + foodCount;
+            cholesterol += currSelectedFood[4] + " * x" + foodCount;
+            maxCholesterol += "-" + currSelectedFood[4] + " * x" + foodCount;
             console.log("Cholesterol: " + cholesterol);
             console.log("maxCholesterol: " + maxCholesterol);
             
             //Add totalFat
-            totalFat += event.model.item.totalFat + " * x" + foodCount;
-            maxTotalFat += "-" + event.model.item.totalFat + " * x" + foodCount;
+            totalFat += currSelectedFood[5] + " * x" + foodCount;
+            maxTotalFat += "-" + currSelectedFood[5] + " * x" + foodCount;
             console.log("totalFat: " + totalFat);
             console.log("maxTotalFat: " + maxTotalFat);
             
             //Add sodium
-            sodium += event.model.item.sodium + " * x" + foodCount;
-            maxSodium += "-" + event.model.item.sodium + " * x" + foodCount;
+            sodium += currSelectedFood[6] + " * x" + foodCount;
+            maxSodium += "-" + currSelectedFood[6] + " * x" + foodCount;
             console.log("sodium: " + sodium);
             console.log("maxSodium: " + maxSodium);
             
             //Add carbohydrates
-            carbohydrates += event.model.item.carbohydrates + " * x" + foodCount;
-            maxCarbohydrates += "-" + event.model.item.carbohydrates + " * x" + foodCount;
+            carbohydrates += currSelectedFood[7] + " * x" + foodCount;
+            maxCarbohydrates += "-" + currSelectedFood[7] + " * x" + foodCount;
             console.log("carbohydrates: " + carbohydrates);
             console.log("maxCarbohydrates: " + maxCarbohydrates);
             
             //Add dietaryFiber
-            dietaryFiber += event.model.item.dietaryFiber + " * x" + foodCount;
-            maxDietaryFiber += "-" + event.model.item.dietaryFiber + " * x" + foodCount;
+            dietaryFiber += currSelectedFood[8] + " * x" + foodCount;
+            maxDietaryFiber += "-" + currSelectedFood[8] + " * x" + foodCount;
             console.log("dietaryFiber: " + dietaryFiber);
             console.log("maxDietaryFiber: " + maxDietaryFiber);
             
             //Add protein
-            protein += event.model.item.protein + " * x" + foodCount;
-            maxProtein += "-" + event.model.item.protein + " * x" + foodCount;
+            protein += currSelectedFood[9] + " * x" + foodCount;
+            maxProtein += "-" + currSelectedFood[9] + " * x" + foodCount;
             console.log("protein: " + protein);
             console.log("maxProtein: " + maxProtein);
             
             //Add vitA
-            vitA += event.model.item.vitA + " * x" + foodCount;
-            maxVitA += "-" + event.model.item.vitA + " * x" + foodCount;
+            vitA += currSelectedFood[10] + " * x" + foodCount;
+            maxVitA += "-" + currSelectedFood[10] + " * x" + foodCount;
             console.log("vitA: " + vitA);
             console.log("maxVitA: " + maxVitA);
             
             //Add vitC
-            vitC += event.model.item.vitC + " * x" + foodCount;
-            maxVitC += "-" + event.model.item.vitC + " * x" + foodCount;
+            vitC += currSelectedFood[11] + " * x" + foodCount;
+            maxVitC += "-" + currSelectedFood[11] + " * x" + foodCount;
             console.log("vitC: " + vitC);
             console.log("maxVitC: " + maxVitC);
             
             //Add calcium
-            calcium += event.model.item.calcium + " * x" + foodCount;
-            maxCalcium += "-" + event.model.item.calcium + " * x" + foodCount;
+            calcium += currSelectedFood[12] + " * x" + foodCount;
+            maxCalcium += "-" + currSelectedFood[12] + " * x" + foodCount;
             console.log("calcium: " + calcium);
             console.log("maxCalcium: " + maxCalcium);
             
             //Add iron
-            iron += event.model.item.iron + " * x" + foodCount;
-            maxIron += "-" + event.model.item.iron + " * x" + foodCount;
+            iron += currSelectedFood[13] + " * x" + foodCount;
+            maxIron += "-" + currSelectedFood[13] + " * x" + foodCount;
             console.log("iron: " + iron);
             console.log("maxIron: " + maxIron);
             
@@ -218,11 +241,7 @@ $(document).ready(function() {
             }
             funcStart += ") ";
             
-            for (var j=0; j<selectedFoods.length; j++) {
-                var currSelect = selectedFoods[j];
-                currSelect
-            }
-
+           
             
             //Add Nutrition limits
             
