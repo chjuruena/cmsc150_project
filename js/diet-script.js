@@ -67,7 +67,7 @@ $(document).ready(function() {
 
         selectedDataTbl.row.add([table.row(this).data()[0], "Remove"]).draw(false);
         // console.log(selectedFoods[selectedFoods.length-1]);
-        addFood(selectedFoods[selectedFoods.length-1]);
+        addFoody(selectedFoods[selectedFoods.length-1]);
 
     });
     
@@ -231,11 +231,13 @@ $(document).ready(function() {
             
           };
     //
-    var funcStart = "function(";
+   
     
     function compute() {
-            
-            for (var i=1; i<selectedFoods.length; i++) {
+        var linearFunc = [];
+
+         var funcStart = "function(";
+            for (var i=1; i<=selectedFoods.length; i++) {
               if (i != 1) funcStart += ", ";
               funcStart += "x" + i;  
             }
@@ -247,69 +249,92 @@ $(document).ready(function() {
             
             
             calories = "E1 <- " + funcStart + calories + " + 2000;";
+            linearFunc.push(calories);
             console.log(calories);
             
+            
             maxCalories = "E2 <- " + funcStart + maxCalories + " + -2250;";
+            linearFunc.push(maxCalories);
             console.log(maxCalories);
             
             cholesterol = "E3 <- " + funcStart + cholesterol + " + 0;";
+            linearFunc.push(cholesterol);
             console.log(cholesterol);
             
             maxCholesterol = "E4 <- " + funcStart + maxCholesterol + " + -300;";
+            linearFunc.push(maxCholesterol);
             console.log(maxCholesterol);
             
             totalFat = "E5 <- " + funcStart + totalFat + " + 0;";
+            linearFunc.push(totalFat);
             console.log(totalFat);
             
             maxTotalFat = "E6 <- " + funcStart + maxTotalFat + " + -65;";
+            linearFunc.push(maxTotalFat);
             console.log(maxTotalFat);
             
             sodium = "E7 <- " + funcStart + sodium + " + 0;";
+            linearFunc.push(sodium);
             console.log(sodium);
             
             maxSodium = "E8 <- " + funcStart + maxSodium + " + -2400;";
+            linearFunc.push(maxSodium);
             console.log(maxSodium);
             
             carbohydrates = "E9 <- " + funcStart + carbohydrates + " + 0;";
+            linearFunc.push(carbohydrates);
             console.log(carbohydrates);
             
             maxCarbohydrates = "E10 <- " + funcStart + maxCarbohydrates + " + -300;";
+            linearFunc.push(maxCarbohydrates);
             console.log(maxCarbohydrates);
             
             dietaryFiber = "E11 <- " + funcStart + dietaryFiber + " + 25;";
+            linearFunc.push(dietaryFiber);
             console.log(dietaryFiber);
             
             maxDietaryFiber = "E12 <- " + funcStart + maxDietaryFiber + " + -100;";
+            linearFunc.push(maxDietaryFiber);
             console.log(maxDietaryFiber);
             
             protein = "E13 <- " + funcStart + protein + " + 50;";
+            linearFunc.push(protein);
             console.log(protein);
             
             maxProtein = "E14 <- " + funcStart + maxProtein + " + -100;";
+            linearFunc.push(maxProtein);
             console.log(maxProtein);
             
             vitA = "E15 <- " + funcStart + vitA + " + 5000;";
+            linearFunc.push(vitA);
             console.log(vitA);
             
             maxVitA = "E16 <- " + funcStart + maxVitA + " + -50000;";
+            linearFunc.push(maxVitA);
             console.log(maxVitA);
             
             vitC = "E17 <- " + funcStart + vitC + " + 50;";
+            linearFunc.push(vitC);
             console.log(vitC);
             
             maxVitC = "E18 <- " + funcStart + maxVitC + " + -20000;";
+            linearFunc.push(maxVitC);
             console.log(maxVitC);
             
             calcium = "E19 <- " + funcStart + calcium + " + 800;";
+            linearFunc.push(calcium);
             console.log(calcium);
             
             maxCalcium = "E20 <- " + funcStart + maxCalcium + " + -1600;";
+            linearFunc.push(maxCalcium);
             console.log(maxCalcium);
             
             iron = "E21 <- " + funcStart + iron + " + 10;";
+            linearFunc.push(iron);
             console.log(iron);
             
             maxIron = "E22 <- " + funcStart + maxIron + " + -30;";
+            linearFunc.push(maxIron);
             console.log(maxIron);
             
             var equationCount = 23;
@@ -337,11 +362,22 @@ $(document).ready(function() {
               equationCount++;
               curr = "";
             }
+            
+            
+           
             console.log(serving);
             
             objectiveFunction = "E" + equationCount + " <- " + funcStart + objectiveFunction + " + 0;"
             console.log(objectiveFunction);
            
+            linearFunc =  $.merge( $.merge( [], linearFunc ), serving );
 
+            
+            // linearFunc.push(serving);
+            linearFunc.push(objectiveFunction);
+            linearFunc = linearFunc.join("");
+
+            console.log(linearFunc);
+            // return 
           }
 });
