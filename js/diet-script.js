@@ -43,7 +43,7 @@ $(document).ready(function() {
         columnDefs: [{
             width: 200,
             targets: 0
-        }],
+        }]
 
     });
     $('#selectedDataTbl tbody').on('click', 'tr', function() {
@@ -80,6 +80,7 @@ $(document).ready(function() {
 
 
     });
+    
     $('#dataTable tbody').on('click', 'tr', function() {
         var food = table.row(this).data();
         selectedFoods.push(table.row(this).data());
@@ -99,40 +100,68 @@ $(document).ready(function() {
 
     });
     
-    solveDIETbtn
-    $("#solveDIETbtn").click(function(){
+    $(document).on('click', '#removeSelected', function(){ 
+        selectedDataTbl.clear().draw();
+        selectedFoods.length = [];
+        table.ajax.reload();
+    });
+
+    $(document).on('click', '#solveDIETbtn', function(){ 
+
+        $('#dietRes').remove();
+
+        if (selectedFoods.length != 0){
+           for (var i=0; i<selectedFoods.length; i++) {
+                addFoody(selectedFoods[i]);
+            }
         
-        for (var i=0; i<selectedFoods.length; i++) {
-            addFoody(selectedFoods[i]);
+            var fxn = compute();
+            var str = 'dietmini';
+        
+             getData(fxn, str, function(data) {
+                console.log(data);
+                ////display diet
+                
+                $('#foodTable').hide();
+                $("#mainRow").append(
+                '<div id="dietRes" class="col-md-8">'+
+                '<div id="optimize_diet"><h2>The Optimized Menu</h2></div>'+
+                '<div id="food_breakdown"><h4>The Solution and Cost Breakdown by Food</h3></div>'+
+                '<button class="btn btn-primary " name="" type="button" id="showTblbtn">Try Again!</button>'+
+                '</div>'
+                );
+                
+                if(data.length>1){
+                    //display solution
+    
+                }else{
+                    $('#food_breakdown').remove();    
+                    $("#optimize_diet").append("<h3> The problem is infeasible. </h3><h5>It is not possible to meet the nutritional constraints with the foods that you have selected. </h5>");
+                    
+                }
+            });
+             emptyNutrients(); 
+             
+             
+        }else{
+            bootstrap_alert = function() {};
+            bootstrap_alert.warning = function(message) {
+                $('#selectedFoodTbl').append('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
+            }
+            bootstrap_alert.warning('Food selected cannot be zero');
+            
+            
         }
         
-        var fxn = compute();
-        var str = 'dietmini';
         
-         getData(fxn, str, function(data) {
-            console.log(data);
-            ////display diet
-            
-            $('#foodTable').remove();
-            $("#mainRow").append(
-            '<div id="dietRes" class="col-md-8">'+
-            '<div id="optimize_diet"><h2>The Optimized Menu</h2></div>'+
-            '<div id="food_breakdown"><h4>The Solution and Cost Breakdown by Food</h3></div>'+
-            '</div>'
-            );
-            
-            if(data.length>1){
-                //display solution
-
-            }else{
-                $('#food_breakdown').remove();    
-                $("#optimize_diet").append("<h3> The problem is infeasible. </h3><h5>It is not possible to meet the nutritional constraints with the foods that you have selected. </h5>");
-            }
-        });
-        emptyNutrients();
-
+        // mainRow.append
         
     });
+    $(document).on('click', '#showTblbtn', function(){ 
+        $('#dietRes').remove();
+        $('#foodTable').show();
+    });
+
     
     function addFood(currSelectedFood){
         console.log(currSelectedFood);
