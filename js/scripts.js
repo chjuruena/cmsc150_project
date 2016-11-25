@@ -262,9 +262,9 @@ function getData(fxn, optiType, callback) {
     if (optiType == "Maximize") {
         snipetty = new ocpu.Snippet(fxn + maxi);
     } else if(optiType == "Minimize") {
-        snipetty = new ocpu.Snippet(fxn + rString);
+        snipetty = new ocpu.Snippet(fxn + mini);
     }else if (optiType == "dietmini"){
-        snipetty = new ocpu.Snippet(fxn + dietmini);
+        snipetty = new ocpu.Snippet(fxn + dietString);
     }
     let res = [];
     

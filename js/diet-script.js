@@ -68,12 +68,17 @@ $(document).ready(function() {
 
         selectedDataTbl.row.add([table.row(this).data()[0], "Remove"]).draw(false);
         // console.log(selectedFoods[selectedFoods.length-1]);
-        addFoody(selectedFoods[selectedFoods.length-1]);
+        // addFoody(selectedFoods[selectedFoods.length-1]);
 
     });
     
     solveDIETbtn
     $("#solveDIETbtn").click(function(){
+        
+        for (var i=0; i<selectedFoods.length; i++) {
+            addFoody(selectedFoods[i]);
+        }
+        
         var fxn = compute();
         var str = 'dietmini';
         // getData(fxn, "Minimize", function(data) {
