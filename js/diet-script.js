@@ -111,6 +111,23 @@ $(document).ready(function() {
         
          getData(fxn, str, function(data) {
             console.log(data);
+            ////display diet
+            
+            $('#foodTable').remove();
+            $("#mainRow").append(
+            '<div id="dietRes" class="col-md-8">'+
+            '<div id="optimize_diet"><h2>The Optimized Menu</h2></div>'+
+            '<div id="food_breakdown"><h4>The Solution and Cost Breakdown by Food</h3></div>'+
+            '</div>'
+            );
+            
+            if(data.length>1){
+                //display solution
+
+            }else{
+                $('#food_breakdown').remove();    
+                $("#optimize_diet").append("<h3> The problem is infeasible. </h3><h5>It is not possible to meet the nutritional constraints with the foods that you have selected. </h5>");
+            }
         });
         emptyNutrients();
 

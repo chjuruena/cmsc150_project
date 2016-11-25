@@ -1,9 +1,9 @@
 // import * from "r-script";
 
 //because identity is in base
-let simplex = null;
-let res = null;
-let fxn = null;
+var simplex = null;
+var res = null;
+var fxn = null;
 ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
 
 
@@ -26,7 +26,7 @@ $("#solvebtn").on("click", function() {
     //      alert("Fields cannot be blank!!");
     // }else{
 
-    let optiType = $('input[name="radiogoal"]:checked').val();
+    var optiType = $('input[name="radiogoal"]:checked').val();
     alert(optiType);
     if (optiType == undefined)     alert("Goal cannot be empty");
 
@@ -34,15 +34,15 @@ $("#solvebtn").on("click", function() {
 
     if (optiType != undefined) {
         
-        let varnum = $("#varnum").val();
-        let variables = $("#variables").val();
-        let constraintsnum = $("#constraintsnum").val();
-        let objfxn = $("#objfxn").val();
-        let constr = $("#constr").val();
+        var varnum = $("#varnum").val();
+        var variables = $("#variables").val();
+        var constraintsnum = $("#constraintsnum").val();
+        var objfxn = $("#objfxn").val();
+        var constr = $("#constr").val();
 
-        let fxn = objfxn + constr;
+        var fxn = objfxn + constr;
         console.log(fxn);
-        let arr = parseNum(varnum, variables, constraintsnum, objfxn, constr);
+        var arr = parseNum(varnum, variables, constraintsnum, objfxn, constr);
 
         console.log(arr);
         fxn = arr.join("");
@@ -54,25 +54,27 @@ $("#solvebtn").on("click", function() {
         getData(fxn, optiType, function(data) {
             /* do something with q */
             // console.log(data.Object.mat);
-            if (optiType != "dietmini"){
-                console.log(data["mat"]);
-                let tableaus = data["mat"];
-                let sttuff = [];
-                let iter;
-                $('#result').remove();
-                $('#resultDiv').append('<div id="result"></div>');
-                for (var i = 0; i < tableaus.length; i++) {
-                    //sttuff.push(makeTableHTML(tableaus[i]));
-                    console.log(makeTableHTML(tableaus[i]));
-                    iter = "<span class=\"asteriskField\"> Iteration"+ i;
-                    
-                    $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]));
+            console.log(data["mat"]);
+            var tableaus = data["mat"];
+            var solutionSet = data["solutionSet"];
+
+            var sttuff = [];
+            var iter;
+            $('#result').remove();
+            $('#resultDiv').append('<div id="result"></div>');
+            for (var i = 0; i <=tableaus.length; i++) {
+                //sttuff.push(makeTableHTML(tableaus[i]));
+                if(i==tableaus.length){
+                    $("#result").append("Solution set</span>" + makeTableHTML(solutionSet));
+                    break;
                 }
-                console.log(sttuff);
-            }else{
-                ////display diet
+                console.log(makeTableHTML(tableaus[i]));
+                iter = "<span class=\"asteriskField\"> Iteration"+ i;
                 
+                $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]));
             }
+            console.log(sttuff);
+        
             
         }); // }
         console.log(res);
@@ -99,7 +101,7 @@ function makeTableHTML(myArray) {
 function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
 
     constr = " " + constr + objfxn;
-    let flist = [];
+    var flist = [];
     // constraintsnum++;
     console.log(constr);
 
@@ -112,17 +114,17 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
 
 
     constraintsnum++;
-    let formatted = [];
+    var formatted = [];
 
     constr = constr.split(";");
     console.log(constr);
-    let regRes = null;
-    let pattern = /[-+]?[0-9]*\.?[0-9]+x/g;
-    let patternNOX = /[^x=+] ?[-+]?[0-9]*\.?[0-9]+/g;
-    let constraintsFormatted = [];
+    var regRes = null;
+    var pattern = /[-+]?[0-9]*\.?[0-9]+x/g;
+    var patternNOX = /[^x=+] ?[-+]?[0-9]*\.?[0-9]+/g;
+    var constraintsFormatted = [];
     for (var i = 0; i < constraintsnum; i++) {
         //regex
-        let regRes = get_numbers(constr[i], patternNOX);
+        var regRes = get_numbers(constr[i], patternNOX);
 
         console.log(regRes);
         console.log(regRes.length);
@@ -130,14 +132,14 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
         if (regRes.length <= 1) {
             console.log('solosolosolosolosolosolosolosolosolosolosolosolosolosolo');
 
-            let str = constr[i].split(" ");
-            let ab = 0;
-            let y = "";
+            var str = constr[i].split(" ");
+            var ab = 0;
+            var y = "";
             console.log(str);
             console.log(str.length);
             for (var a = 0; a < str.length; a++) {
                 // kung ganito --> x1 <= 9;
-                let x = str[a].match(/x\d/g);
+                var x = str[a].match(/x\d/g);
                 if (x != null) {
                     console.log("XXXXXX    " + x);
                     //      y =  '1'+ ' * ' + x ;
@@ -174,10 +176,10 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
             console.log('WIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLEWIGGLE');
             console.log(regRes);
 
-            let ab = '';
-            // let str = constr[i].split(" ");
+            var ab = '';
+            // var str = constr[i].split(" ");
             if (i == constraintsnum - 1) regRes.length++;
-            let temp = '';
+            var temp = '';
             for (var j = 1; j < regRes.length; j++) {
                 // if(j%2!=0 && j==regRes.length-1) regRes.splice(j,1);
 
@@ -205,7 +207,7 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
 
         //   E1 <- function (x1, x2)
     }
-    let fxnlist = 'f <- list( ' + flist.toString() + ' );';
+    var fxnlist = 'f <- list( ' + flist.toString() + ' );';
     constraintsFormatted.push(fxnlist);
 
     return constraintsFormatted;
@@ -224,8 +226,8 @@ function get_numbers(input, pattern) {
 
 function getData(fxn, optiType, callback) {
     console.log(fxn);
-    let simplexCODE;
-    let snipetty;
+    var simplexCODE;
+    var snipetty;
     
     // if (optiType == "Maximize") {
     //     snipetty = new ocpu.Snippet(fxn + maxi);
@@ -240,9 +242,9 @@ function getData(fxn, optiType, callback) {
     }else if (optiType == "dietmini"){
         snipetty = new ocpu.Snippet(fxn + dietString);
     }
-    let res = [];
+    var res = [];
     
-    let req = ocpu.rpc("identity", {
+    var req = ocpu.rpc("identity", {
         "x": snipetty
     }, function(output) {
         // res
@@ -264,10 +266,10 @@ function getData(fxn, optiType, callback) {
 // function solveSimplex(fxn){
 //     console.log(fxn);
 
-//     let res = [];
-//     let snipetty = new ocpu.Snippet(fxn+code);
+//     var res = [];
+//     var snipetty = new ocpu.Snippet(fxn+code);
 
-//     let req = ocpu.rpc("identity", {
+//     var req = ocpu.rpc("identity", {
 //           "x" : snipetty
 //     }, function(output){
 //         // res
