@@ -253,19 +253,19 @@ function getData(fxn, optiType, callback) {
     let simplexCODE;
     let snipetty;
     
-    if (optiType == "Maximize") {
-        snipetty = new ocpu.Snippet(fxn + maxi);
-    } else{
-        snipetty = new ocpu.Snippet(fxn + rString);
-    }
-
     // if (optiType == "Maximize") {
     //     snipetty = new ocpu.Snippet(fxn + maxi);
-    // } else if(optiType == "Minimize") {
-    //     snipetty = new ocpu.Snippet(fxn + rString);
-    // }else if (optiType == "dietmini"){
-    //     snipetty = new ocpu.Snippet(fxn + dietmini);
+    // } else{
+    //     snipetty = new ocpu.Snippet(fxn + mini);
     // }
+
+    if (optiType == "Maximize") {
+        snipetty = new ocpu.Snippet(fxn + maxi);
+    } else if(optiType == "Minimize") {
+        snipetty = new ocpu.Snippet(fxn + rString);
+    }else if (optiType == "dietmini"){
+        snipetty = new ocpu.Snippet(fxn + dietmini);
+    }
     let res = [];
     
     let req = ocpu.rpc("identity", {
