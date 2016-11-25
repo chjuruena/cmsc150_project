@@ -256,7 +256,7 @@ function getData(fxn, optiType, callback) {
     if (optiType == "Maximize") {
         snipetty = new ocpu.Snippet(fxn + maxi);
     } else{
-        snipetty = new ocpu.Snippet(fxn + mini);
+        snipetty = new ocpu.Snippet(fxn + rString);
     }
 
     // if (optiType == "Maximize") {

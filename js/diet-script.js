@@ -35,6 +35,7 @@ $(document).ready(function() {
     var table = $('#dataTable').removeAttr('width').DataTable({
         ajax: 'foods.json',
         // fixedColumns: true,
+        aaSorting  : [],
         paging: true,
         scrollY: "300px",
         scrollX: true,
@@ -165,7 +166,7 @@ $(document).ready(function() {
       // 13<th>Iron mg</th>
       
             // <th>Price/Serving</th>
-            objectiveFunction += "-" + currSelectedFood[1] + " * x" + foodCount;
+            objectiveFunction +=  currSelectedFood[1] + " * x" + foodCount;
             console.log("objectiveFunction: " + objectiveFunction);
             
             //Add to constraints
