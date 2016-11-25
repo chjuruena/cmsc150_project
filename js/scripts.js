@@ -40,10 +40,6 @@ $("#solvebtn").on("click", function() {
         let objfxn = $("#objfxn").val();
         let constr = $("#constr").val();
 
-
-
-
-
         let fxn = objfxn + constr;
         console.log(fxn);
         let arr = parseNum(varnum, variables, constraintsnum, objfxn, constr);
@@ -58,51 +54,29 @@ $("#solvebtn").on("click", function() {
         getData(fxn, optiType, function(data) {
             /* do something with q */
             // console.log(data.Object.mat);
-            console.log(data["mat"]);
-            let tableaus = data["mat"];
-            let sttuff = [];
-            let iter;
-            $('#result').remove();
-            $('#inputAndtable').append('<div id="result"></div>');
-            for (var i = 0; i < tableaus.length; i++) {
-                //sttuff.push(makeTableHTML(tableaus[i]));
-                console.log(makeTableHTML(tableaus[i]));
-                iter = "<span class=\"asteriskField\"> Iteration"+ i;
+            if (optiType != "dietmini"){
+                console.log(data["mat"]);
+                let tableaus = data["mat"];
+                let sttuff = [];
+                let iter;
+                $('#result').remove();
+                $('#resultDiv').append('<div id="result"></div>');
+                for (var i = 0; i < tableaus.length; i++) {
+                    //sttuff.push(makeTableHTML(tableaus[i]));
+                    console.log(makeTableHTML(tableaus[i]));
+                    iter = "<span class=\"asteriskField\"> Iteration"+ i;
+                    
+                    $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]));
+                }
+                console.log(sttuff);
+            }else{
+                ////display diet
                 
-                $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]));
-
-                
-
-                // Append <button> to <body>
-
             }
-
-            console.log(sttuff);
-
-
-            //     let JSONdata = JSON.stringify({data: data});
-            //     console.log(JSONdata);
-
-            //   let tableaus = JSONdata.data.mat[0];
-            //   let solutionSet = JSONdata.solutionSet;
-            //   let x1 = JSONdata.x1;
-            //   let x2 = JSONdata.x2;
-
-            //   console.log(tableaus);
-
-
-
-
-            ///NAKUKUHA NA LINE 46!!!!!!!!!!!!!!!!!!!!
-
-
+            
         }); // }
         console.log(res);
-
     }
-
-
-
 
 });
 console.log(res);

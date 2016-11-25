@@ -45,7 +45,6 @@
 									<div class="tab-content">
 										<div id="solver" class="tab-pane fade in active">
 											<div id="inputAndtable" class="col-md-6 col-sm-6 col-xs-12">
-												<br /> <button id="submitbutton" type="button">Call R</button>
 												<form method="post">
 													<div class="form-group" id="div_radiogoal">
 														<label class="control-label requiredField" for="radiogoal">
@@ -136,7 +135,11 @@
 														</div>
 													</div>
 												</form>
-												<div id="result">
+												
+										</div>
+										<div id="resultDiv"  class="col-md-6 col-sm-6 col-xs-12">
+											<h5> Solution: </h5>
+											<div id="result">
 												<pre><code id="output"></code></pre>
 												</div>
 										</div>
@@ -205,6 +208,14 @@
 											<button class="btn btn-primary " name="" type="button" id="solveDIETbtn">
 												Solve diet!
 											</button>
+											<div id="optimize_diet">
+												<h4>The Optimized Menu</h4>
+												
+											</div>
+											<div id="food_breakdown">
+												<h4>The Solution and Cost Breakdown by Food</h4>
+											</div>
+											
 											
 										</div>
 									</div>

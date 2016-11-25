@@ -1,6 +1,34 @@
  
 
 $(document).ready(function() {
+    //nutrienta
+    var objectiveFunction="";
+    var pricePerServing = "";
+    var calories="";
+    var maxCalories="";
+    var cholesterol="";
+    var maxCholesterol="";
+    var totalFat="";
+    var maxTotalFat="";
+    var sodium="";
+    var maxSodium="";
+    var carbohydrates="";
+    var maxCarbohydrates="";
+    var dietaryFiber="";
+    var maxDietaryFiber="";
+    var protein="";
+    var maxProtein="";
+    var vitA="";
+    var maxVitA="";
+    var vitC="";
+    var maxVitC="";
+    var calcium="";
+    var maxCalcium="";
+    var iron="";
+    var maxIron="";
+    var serving = [];
+    var foodCount = 1;
+    
     
     var selected = [];
     var selectedFoods = [];
@@ -67,8 +95,7 @@ $(document).ready(function() {
 
 
         selectedDataTbl.row.add([table.row(this).data()[0], "Remove"]).draw(false);
-        // console.log(selectedFoods[selectedFoods.length-1]);
-        // addFoody(selectedFoods[selectedFoods.length-1]);
+       
 
     });
     
@@ -81,12 +108,11 @@ $(document).ready(function() {
         
         var fxn = compute();
         var str = 'dietmini';
-        // getData(fxn, "Minimize", function(data) {
-        //     console.log(data);
-        // });
+        
          getData(fxn, str, function(data) {
             console.log(data);
         });
+        emptyNutrients();
 
         
     });
@@ -95,33 +121,37 @@ $(document).ready(function() {
         console.log(currSelectedFood);
     }
     console.log(selectedFoods.length);
-    
-        var objectiveFunction="";
-        var pricePerServing = "";
-        var calories="";
-        var maxCalories="";
-        var cholesterol="";
-        var maxCholesterol="";
-        var totalFat="";
-        var maxTotalFat="";
-        var sodium="";
-        var maxSodium="";
-        var carbohydrates="";
-        var maxCarbohydrates="";
-        var dietaryFiber="";
-        var maxDietaryFiber="";
-        var protein="";
-        var maxProtein="";
-        var vitA="";
-        var maxVitA="";
-        var vitC="";
-        var maxVitC="";
-        var calcium="";
-        var maxCalcium="";
-        var iron="";
-        var maxIron="";
-        var serving = [];
-        var foodCount = 1;
+        
+        
+    function emptyNutrients(){
+        objectiveFunction="";
+         pricePerServing = "";
+         calories="";
+         maxCalories="";
+         cholesterol="";
+         maxCholesterol="";
+         totalFat="";
+         maxTotalFat="";
+         sodium="";
+         maxSodium="";
+         carbohydrates="";
+         maxCarbohydrates="";
+         dietaryFiber="";
+         maxDietaryFiber="";
+         protein="";
+         maxProtein="";
+         vitA="";
+         maxVitA="";
+         vitC="";
+         maxVitC="";
+         calcium="";
+         maxCalcium="";
+         iron="";
+         maxIron="";
+         serving = [];
+         foodCount = 1;
+         
+    }
     
     
    function addFoody (currSelectedFood) {
@@ -259,10 +289,7 @@ $(document).ready(function() {
             funcStart += ") ";
             
            
-            
             //Add Nutrition limits
-            
-            
            calories = "E1 <- " + funcStart + calories + " + -2000;";
             linearFunc.push(calories);
             console.log(calories);
@@ -412,6 +439,3 @@ $(document).ready(function() {
           }
 });
 
-
-// E25 <- function(x1) -0.23 * x1 + 0;E24 <- function(x1) -1 * x1 + 10;E23 <- function(x1) 1 * x1 + 0;E22 <- function(x1) -0.1 * x1 + 30;E21 <- function(x1) 0.1 * x1 + -10;E20 <- function(x1) -296.7 * x1 + 1600;E19 <- function(x1) 296.7 * x1 + -800;E18 <- function(x1) -2.3 * x1 + 20000;E17 <- function(x1) 2.3 * x1 + -50;E16 <- function(x1) -500.2 * x1 + 50000;E15 <- function(x1) 500.2 * x1 + -5000;E14 <- function(x1) -8.1 * x1 + 100;E13 <- function(x1) 8.1 * x1 + -50;E12 <- function(x1) -0 * x1 + 100;E11 <- function(x1) 0 * x1 + -25;E10 <- function(x1) -11.7 * x1 + 300;E9 <- function(x1) 11.7 * x1 + 0;E8 <- function(x1) -121.8 * x1 + 2400;E7 <- function(x1) 121.8 * x1 + 0;E6 <- function(x1) -4.7 * x1 + 65;E5 <- function(x1) 4.7 * x1 + -0;E4 <- function(x1) -18.3 * x1 + 300;E3 <- function(x1) 18.3 * x1 + 0;E2 <- function(x1) -121.2 * x1 + 2250;E1 <- function(x1) 121.2 * x1 + -2000;system <- list(E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22, E23, E24, E25);
-// E1 <- function(x1) 121.2 * x1 + 2000; E2 <- function(x1) -121.2 * x1 + -2250; E3 <- function(x1) 18.3 * x1 + 0; E4 <- function(x1) -18.3 * x1 + -300; E5 <- function(x1) 4.7 * x1 + 0; E6 <- function(x1) -4.7 * x1 + -65; E7 <- function(x1) 121.8 * x1 + 0; E8 <- function(x1) -121.8 * x1 + -2400; E9 <- function(x1) 11.7 * x1 + 0; E10 <- function(x1) -11.7 * x1 + -300; E11 <- function(x1) 0 * x1 + 25; E12 <- function(x1) -0 * x1 + -100; E13 <- function(x1) 8.1 * x1 + 50; E14 <- function(x1) -8.1 * x1 + -100; E15 <- function(x1) 500.2 * x1 + 5000; E16 <- function(x1) -500.2 * x1 + -50000; E17 <- function(x1) 2.3 * x1 + 50; E18 <- function(x1) -2.3 * x1 + -20000; E19 <- function(x1) 296.7 * x1 + 800; E20 <- function(x1) -296.7 * x1 + -1600; E21 <- function(x1) 0.1 * x1 + 10; E22 <- function(x1) -0.1 * x1 + -30; E22 <- function(x1) 1 * x1 + 0; E23 <- function(x1) -1 * x1 + -10; E24 <- function(x1) -0.23 * x1 + 0; f <- list( E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,E13,E14,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24 );
