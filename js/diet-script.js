@@ -50,9 +50,7 @@ $(document).ready(function() {
 
     });
     
-    var optimizedDataTbl = $('#resMenudataTable').DataTable({
-        data: menuData
-    });
+    
     $('#resultMenudiv').hide();
     
     $('#selectedDataTbl tbody').on('click', 'tr', function() {
@@ -132,50 +130,54 @@ $(document).ready(function() {
                 ////display diet
                 
                 $('#foodTable').hide();
-                $("#mainRow").append(
-                '<div id="dietRes" class="col-md-8">'+
-                '<div id="optimize_diet"><h2>The Optimized Menu</h2></div>'+
-                '<div id="food_breakdown"><h4>The Solution and Cost Breakdown by Food</h3></div>'+
-                '<button class="btn btn-primary " name="" type="button" id="showTblbtn">Try Again!</button>'+
-                '</div>'
-                );
                 
                 if(data.length>1){
                     //display solution
                     //result
                     var res = data;
-                    // var res = [0, 250, 56.7694, 243.2306, 59.5096, 5.4904, 2400, 0, 300, 0, 10.2057, 64.7943, 134.518, 15.482, 4000.7897, 40999.2103, 196.5572, 19753.4428, 0, 800, 20, 0, 1.496, 8.504, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0.368, 9.632, 1.6283, 8.3717, 0.437, 9.563, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 1.5636, 8.4364, 10, 0, 10, 0, 1.496, 0, 0, 0, 0, 0, 0.368, 1.6283, 0.437, 0, 0, 0, 0, 0, 0, 0, 0, 1.5636, 10, 10, 1, 2.7115];
-                    //20 na lang
-                    // [1.496, 0, 0, 0, 0, 0, 0.368, 1.6283, 0.437, 0, 0, 0, 0, 0, 0, 0, 0, 1.5636, 10, 10, 1, 2.7115]
-                    
                     var flen = selectedFoods.length;
                     var optiCost = data[data.length];
                     res = res.slice(Math.max(res.length - (flen+2)));
                     console.log(res);
                     var optimizedServs = [];
-                    console.log(optimizedServs);
-                    for (var i=0; i<(flen-2); i++) {
-                        if (res[i]!=0) optimizedServs.push(res[i]);
+                    var index = [];
+                    for (var i=0; i<res.length-2; i++) {
+                        if (res[i]!=0) {
+                            optimizedServs.push(res[i]);
+                            index.push(res.indexOf(res[i]));
+                        }
+                        
                     }
+                    console.log(optimizedServs); // result ng simplex
                     // price of ffood
                     var optCostperFood = [];
-                     for (var i=0; i<res.len; i++) {
-                         var tempFood = selectedFoods[i];
+                     for (var i=0; i<optimizedServs.length; i++) {
+                         var tempFood = selectedFoods[index[i]];
                          //price*nutrient
-                         optCostperFood.push((Math.ciel(tempFood[1]*optimizedServs[i])*100)/100);
+                         console.log(tempFood[1]*optimizedServs[i]);
+                         optCostperFood.push(Math.ceil(tempFood[1]*optimizedServs[i]*100)/100);
+                        
+                        //  Math.ceil(session[session.length-1] * 100) / 100;
                         //  console.log(optCostperFood[i]);
                     }
-                    console.log(optimizedServs);
-                    console.log(optCostperFood);
+                    console.log(optimizedServs); // result ng simplex
+                    console.log(optCostperFood); // price * result ng simple
                     var menuData = [];
+                    var elemetnPermenuData = [];
                     
-                    for (var i = 0; i < res.length; i++) {
+                    for (var i = 0; i < optimizedServs.length; i++) {
                         //or check with: if (b.length > i) { assignment }
-                        // menuData[optimizedServs[i]] = optCostperFood[i] 
+                        // menuData[optimizedServs[i]] = optCostperFood[i]
+                        elemetnPermenuData = [];
+                        var temp = selectedFoods[index[i]];
+                        // console.log(temp[0]);
+                        elemetnPermenuData.push(temp[0] ,optimizedServs[i], optCostperFood[i] );
+                        menuData.push(elemetnPermenuData);
                     }
                     console.log(menuData);
-                    
-                    optimizedDataTbl.ajax.reload();
+                    var optimizedDataTbl = $('#resMenudataTable').DataTable({
+                        data: menuData
+                    });
                     $('#resultMenudiv').show();
 
                    								
@@ -191,6 +193,14 @@ $(document).ready(function() {
                     
     
                 }else{
+                    $("#mainRow").append(
+                    '<div id="dietRes" class="col-md-8">'+
+                    '<div id="optimize_diet"><h2>The Optimized Menu</h2></div>'+
+                    '<div id="food_breakdown"><h4>The Solution and Cost Breakdown by Food</h3></div>'+
+                    '<button class="btn btn-primary " name="" type="button" id="showTblbtn">Try Again!</button>'+
+                    '</div>'
+                    );
+                
                     $('#food_breakdown').remove();    
                     $("#optimize_diet").append("<h3> The problem is infeasible. </h3><h5>It is not possible to meet the nutritional constraints with the foods that you have selected. </h5>");
                     
@@ -213,8 +223,10 @@ $(document).ready(function() {
         // mainRow.append
         
     });
-    $(document).on('click', '#showTblbtn', function(){ 
+    $(document).on('click', '#showTblbtn', function(){
         $('#dietRes').remove();
+        table.ajax.reload();
+         $('#resultMenudiv').hide();
         $('#foodTable').show();
     });
 
