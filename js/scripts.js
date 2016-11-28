@@ -57,14 +57,18 @@ $("#solvebtn").on("click", function() {
             console.log(data["mat"]);
             var tableaus = data["mat"];
             var sslist = data["sslist"];
+            var colLabel = data["colLabel"];
+            colLabel = colLabel[1];
+            var temp = [];
             var solutionSet = data["solutionSet"];
+            solutionSet = temp.push(solutionSet);
             
             
             // solutionset
-           for (var i = 0; i <=sslist.length; i++) {
-               var temp = [];
-               sslist.push( temp.push(sslist[i]));
-           }
+        //   for (var i = 0; i <sslist.length; i++) {
+        //       var temp = [];
+        //       sslist[i] = temp.push(sslist[i]);
+        //   }
 
 
             var sttuff = [];
@@ -73,14 +77,18 @@ $("#solvebtn").on("click", function() {
             $('#resultDiv').append('<div id="result"></div>');
             for (var i = 0; i <=tableaus.length; i++) {
                 //sttuff.push(makeTableHTML(tableaus[i]));
-                // if(i==tableaus.length){
-                //     $("#result").append("Solution set</span>" + makeTableHTML(solutionSet));
-                //     break;
-                // }
+                if(i==tableaus.length){
+                    console.log(solutionSet);
+                    $("#result").append("Solution set</span>" + makeTableHTML(solutionSet));
+                    break;
+                }
                 console.log(makeTableHTML(tableaus[i]));
                 iter = "<span class=\"asteriskField\"> Iteration"+ i;
                 
-                $("#result").append(iter+"</span>" + makeTableHTML(tableaus[i]) + makeTableHTML(sslist[i]));
+                console.log(sslist[i]);
+                var temp = tableaus[i];
+                temp.unshift(colLabel);
+                $("#result").append(iter+"</span>" + makeTableHTML(temp));
                 
             }
             console.log(sttuff);
