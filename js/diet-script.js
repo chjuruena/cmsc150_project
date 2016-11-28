@@ -135,8 +135,14 @@ $(document).ready(function() {
             // console.log(data);
             // addFoody(data);
             selectedFoods.push(data);
+            // selectedDataTbl.row.add([table.row(this).data()[0], "Remove"]).draw(false);
+
+            
             // ... do something with data(), or row.node(), etc
         } );
+        console.log(selectedFoods);
+
+
                 
     });
 
