@@ -66,11 +66,13 @@ $("#solvebtn").on("click", function() {
 
             var xList = solutionSet;
             if(optiType == "Minimize"){
-               
-                xList = xList.slice(Math.max(xList.length - (varnum-1)));
+               varnum = parseInt(varnum);
+                xList = xList.slice(Math.max(xList.length - (varnum + 2)));
+                console.log(xList);
+                 xList = xList.slice(0,varnum);
 
                 console.log(xList);
-                
+
                 colLabel = [];
                 
             }else{
