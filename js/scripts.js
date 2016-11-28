@@ -4,6 +4,7 @@
 var simplex = null;
 var res = null;
 var fxn = null;
+var variables = null;
 ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
 
 
@@ -35,7 +36,7 @@ $("#solvebtn").on("click", function() {
     if (optiType != undefined) {
         
         var varnum = $("#varnum").val();
-        var variables = $("#variables").val();
+        variables = $("#variables").val();
         var constraintsnum = $("#constraintsnum").val();
         var objfxn = $("#objfxn").val();
         var constr = $("#constr").val();
@@ -43,7 +44,7 @@ $("#solvebtn").on("click", function() {
         var fxn = objfxn + constr;
         console.log(fxn);
         var arr = parseNum(varnum, variables, constraintsnum, objfxn, constr);
-
+        
         console.log(arr);
         fxn = arr.join("");
         console.log("HAHAHAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -58,34 +59,47 @@ $("#solvebtn").on("click", function() {
             var tableaus = data["mat"];
             var sslist = data["sslist"];
             var colLabel = data["colLabel"];
-            colLabel = colLabel[1];
+            
             var temp = [];
             var solutionSet = data["solutionSet"];
-            solutionSet = temp.push(solutionSet);
-            
-            
-            // solutionset
-        //   for (var i = 0; i <sslist.length; i++) {
-        //       var temp = [];
-        //       sslist[i] = temp.push(sslist[i]);
-        //   }
+            variables = variables.split(",");
 
+            var xList = solutionSet;
+            if(optiType == "Minimize"){
+               
+                xList = xList.slice(Math.max(xList.length - (varnum-1)));
 
+                console.log(xList);
+                
+                colLabel = [];
+                
+            }else{
+                colLabel = colLabel[1];
+            }
+
+            
             var sttuff = [];
             var iter;
             $('#result').remove();
             $('#resultDiv').append('<div id="result"></div>');
+            //
             for (var i = 0; i <=tableaus.length; i++) {
                 //sttuff.push(makeTableHTML(tableaus[i]));
                 if(i==tableaus.length){
                     console.log(solutionSet);
-                    $("#result").append("Solution set</span>" + makeTableHTML(solutionSet));
+                 
+                    // $("#result").append("Solution set</span>" + makeTableHTML(solutionSet));
+                    console.log(temp);
+                    for (var i = 0; i < varnum; i++) {
+                        $("#result").append("<h5>" + variables[i] + " = " + xList[i] + "</h5>");
+                    }
+                    //  $("#result").append("</span>" );
+                    
                     break;
                 }
                 console.log(makeTableHTML(tableaus[i]));
                 iter = "<span class=\"asteriskField\"> Iteration"+ i;
                 
-                console.log(sslist[i]);
                 var temp = tableaus[i];
                 temp.unshift(colLabel);
                 $("#result").append(iter+"</span>" + makeTableHTML(temp));
