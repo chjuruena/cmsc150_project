@@ -69,7 +69,7 @@ $(document).ready(function() {
 
     var table = $('#dataTable').removeAttr('width').DataTable({
         ajax: 'foods.json',
-        // fixedColumns: true,
+        select: true,
         aaSorting  : [],
         paging: true,
         scrollY: "300px",
@@ -79,14 +79,25 @@ $(document).ready(function() {
             width: 150,
             targets: 0
         }],
+        buttons: [
+            'selectAll',
+            'selectNone'
+        ],
+        language: {
+            buttons: {
+                selectAll: "Select all items",
+                selectNone: "Select none"
+            }
+        },
         rowCallback: function(row, data) {
             if ($.inArray(data.DT_RowId, selected) !== -1) {
                 $(row).addClass('selected');
             }
         }
-
-
     });
+    var allData = table
+        .rows()
+        .data();
     
     $('#dataTable tbody').on('click', 'tr', function() {
         var food = table.row(this).data();
@@ -111,6 +122,22 @@ $(document).ready(function() {
         selectedDataTbl.clear().draw();
         selectedFoods.length = [];
         table.ajax.reload();
+    });
+    
+    
+    $(document).on('click', '#selectAllFood', function(){ 
+       
+        
+        table.rows().eq(0).each( function ( index ) {
+            var row = table.row( index );
+         
+            var data = row.data();
+            // console.log(data);
+            // addFoody(data);
+            selectedFoods.push(data);
+            // ... do something with data(), or row.node(), etc
+        } );
+                
     });
 
     $(document).on('click', '#solveDIETbtn', function(){ 

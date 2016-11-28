@@ -162,6 +162,11 @@ function parseNum(varnum, variables, constraintsnum, objfxn, constr) {
 
         console.log(regRes);
         console.log(regRes.length);
+        if(regRes.length == null){
+            throw new Error("Something went badly wrong!");
+            return 0;
+            
+        }
         // 7 1 11 2 77
         if (regRes.length <= 1) {
             console.log('solosolosolosolosolosolosolosolosolosolosolosolosolosolo');
