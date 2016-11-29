@@ -53,7 +53,9 @@ $(document).ready(function() {
     
     $('#resultMenudiv').hide();
     $('#allLbl').hide();
-    
+
+    $('.circle').hide();
+
     $('#selectedDataTbl tbody').on('click', 'tr', function() {
         if (selectedFoods.length != 0) {
 
@@ -156,7 +158,10 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#solveDIETbtn', function(){ 
+        $('.circle').show();
+        setTimeout(function() { $(".circle").hide(); }, 5000);
 
+    
         $('#dietRes').remove();
 
         if (selectedFoods.length != 0){
@@ -166,20 +171,24 @@ $(document).ready(function() {
         
             var fxn = compute();
             var str = 'dietmini';
-        
+            $('#foodTable').hide(); 
+            
+
              getData(fxn, str, function(data) {
+        
                 console.log(data);
                 ////display diet
                 
-                $('#foodTable').hide();
+                
                 
                 if(data.length>1){
                     //display solution
                     //result
                     var res = data;
                     var flen = selectedFoods.length;
-                    var optiCost = data[data.length];
+                    var optiCost = data[data.length-1];
                     res = res.slice(Math.max(res.length - (flen+2)));
+                    
                     console.log(res);
                     var optimizedServs = [];
                     var index = [];
@@ -199,8 +208,7 @@ $(document).ready(function() {
                          console.log(tempFood[1]*optimizedServs[i]);
                          optCostperFood.push(Math.ceil(tempFood[1]*optimizedServs[i]*100)/100);
                         
-                        //  Math.ceil(session[session.length-1] * 100) / 100;
-                        //  console.log(optCostperFood[i]);
+                   
                     }
                     console.log(optimizedServs); // result ng simplex
                     console.log(optCostperFood); // price * result ng simple
@@ -220,18 +228,9 @@ $(document).ready(function() {
                     var optimizedDataTbl = $('#resMenudataTable').DataTable({
                         data: menuData
                     });
+                     $("#resultMenudiv").append("<h4> The optimum cost is $" + optiCost + "</h4>");
                     $('#resultMenudiv').show();
 
-                   								
-                    
-
-                    
-
-
-                    
-                    
-                    
-                    
                     
     
                 }else{
