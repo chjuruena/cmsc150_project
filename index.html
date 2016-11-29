@@ -27,12 +27,12 @@
 							
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 							<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-							</button> <a class="navbar-brand" href="#">Brand</a>
+							</button> <a class="navbar-brand" href="#">Optimizer</a>
 						</div>
 						
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
-								<li class="active"><a data-toggle="tab" href="#solver">Home</a></li>
+								<li class="active"><a data-toggle="tab" href="#solver">Ultimate</a></li>
 								<li><a data-toggle="tab" href="#diet">Diet Solver</a></li>
 								
 							</ul>
@@ -95,7 +95,7 @@
 																*
 															</span>
 														</label>
-														<input class="form-control" id="constraintsnum" name="constraintsnum" type="text" value="60x1 + 60x2 >= 300;12x1 + 66x2 >= 36;10x1 + 30x2 >= 90;"/>
+														<input class="form-control" id="constraintsnum" name="constraintsnum" type="text" value=""/>
 													</div>
 													<div class="form-group ">
 														<label class="control-label requiredField" for="objfxn">
@@ -104,7 +104,7 @@
 																*
 															</span>
 														</label>
-														<input class="form-control" id="objfxn" name="objfxn" type="text" value="Z = 0.12x1 + 0.15x2;"/>
+														<input class="form-control" id="objfxn" name="objfxn" type="text" value=""/>
 													</div>
 													<div class="form-group ">
 														<label class="control-label requiredField" for="textarea1">
@@ -170,6 +170,7 @@
 													</tr>
 													</tfoot>
 												</table>
+												<h5 id="allLbl"> All Food are selected</h5>
 												<button class="btn btn-danger btn-block " name="" type="button" id="removeSelected">
 													Reset data
 												</button>

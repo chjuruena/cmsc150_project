@@ -52,6 +52,7 @@ $(document).ready(function() {
     
     
     $('#resultMenudiv').hide();
+    $('#allLbl').hide();
     
     $('#selectedDataTbl tbody').on('click', 'tr', function() {
         if (selectedFoods.length != 0) {
@@ -119,6 +120,8 @@ $(document).ready(function() {
     });
     
     $(document).on('click', '#removeSelected', function(){ 
+        $("#allLbl").hide();
+
         selectedDataTbl.clear().draw();
         selectedFoods.length = [];
         table.ajax.reload();
@@ -135,12 +138,18 @@ $(document).ready(function() {
             // console.log(data);
             // addFoody(data);
             selectedFoods.push(data);
+            $(this).toggleClass('selected');
+
             // selectedDataTbl.row.add([table.row(this).data()[0], "Remove"]).draw(false);
 
             
             // ... do something with data(), or row.node(), etc
         } );
+        
         console.log(selectedFoods);
+        $('#selectedDataTbl').hide();
+        $("#allLbl").show();
+
 
 
                 
